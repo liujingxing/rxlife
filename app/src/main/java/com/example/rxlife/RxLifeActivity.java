@@ -12,6 +12,8 @@ import com.rxjava.rxlife.RxLife;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.*;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 @SuppressLint("CheckResult")
 public class RxLifeActivity extends AppCompatActivity {
@@ -65,5 +67,37 @@ public class RxLifeActivity extends AppCompatActivity {
                 .subscribe(() -> {
                     Log.e("LJX", "run");
                 });
+    }
+
+    public void leakcanary(View view) {
+        Observable.timer(100, TimeUnit.MILLISECONDS)
+                .map(new MyFunction<>())
+                .lift(RxLife.lift(this))
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.e("LJX", "accept =" + aLong);
+                    }
+                });
+    }
+
+    static class MyFunction<T> implements Function<T, T> {
+
+        @Override
+        public T apply(T t) throws Exception {
+            //当dispose时，第一次睡眠会被吵醒,接着便会进入第二次睡眠
+            try {
+                Thread.sleep(3000);
+            } catch (Exception e) {
+
+            }
+
+            try {
+                Thread.sleep(30000);
+            } catch (Exception e) {
+
+            }
+            return t;
+        }
     }
 }

@@ -3,6 +3,8 @@ package com.example.rxlife;
 import android.app.Application;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**
@@ -15,6 +17,7 @@ public class AppHolder extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LeakCanary.install(this);
         //设置RxJava 全局异常处理
         RxJavaPlugins.setErrorHandler(throwable -> {
             Log.e("LJX", "setErrorHandler=" + throwable);
