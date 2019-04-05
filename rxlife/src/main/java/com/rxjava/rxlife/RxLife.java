@@ -3,6 +3,8 @@ package com.rxjava.rxlife;
 import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleOwner;
 
+import org.reactivestreams.Publisher;
+
 import io.reactivex.*;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -13,124 +15,92 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 public final class RxLife {
 
-    public static <T> ObservableTransformer<T, T> observable(LifecycleOwner owner) {
-        return observable(owner, Event.ON_DESTROY);
+    public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner) {
+        return lift(lifecycleOwner, Event.ON_DESTROY);
     }
 
-    public static <T> ObservableTransformer<T, T> observable(LifecycleOwner owner, Event event) {
-        return upstream -> upstream.onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeObserver<>(owner, observer, event);
-                });
+    public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner, Event event) {
+        return new RxLifeOperator<>(lifecycleOwner, event);
     }
 
-    public static <T> ObservableTransformer<T, T> observableOnMain(LifecycleOwner owner) {
-        return observableOnMain(owner, Event.ON_DESTROY);
+    public static <T> RxLifeTransformer<T> compose(LifecycleOwner owner) {
+        return compose(owner, Event.ON_DESTROY);
     }
 
-    public static <T> ObservableTransformer<T, T> observableOnMain(LifecycleOwner owner, Event event) {
-        return upstream -> upstream
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeObserver<>(owner, observer, event);
-                });
+    public static <T> RxLifeTransformer<T> compose(LifecycleOwner owner, Event event) {
+        return new RxLifeTransformer<T>() {
+            @Override
+            public SingleSource<T> apply(Single<T> upstream) {
+                return upstream.onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+
+            @Override
+            public MaybeSource<T> apply(Maybe<T> upstream) {
+                return upstream.onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+
+            @Override
+            public Publisher<T> apply(Flowable<T> upstream) {
+                return upstream.onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+
+            @Override
+            public CompletableSource apply(Completable upstream) {
+                return upstream.onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+        };
     }
 
-    public static <T> FlowableTransformer<T, T> flowable(LifecycleOwner owner) {
-        return flowable(owner, Event.ON_DESTROY);
+    public static <T> RxLifeTransformer<T> composeOnMain(LifecycleOwner owner) {
+        return composeOnMain(owner, Event.ON_DESTROY);
     }
 
-    public static <T> FlowableTransformer<T, T> flowable(LifecycleOwner owner, Event event) {
-        return upstream -> upstream.onTerminateDetach()
-                .lift(subscriber -> {
-                    return new LifeSubscriber<>(owner, subscriber, event);
-                });
-    }
+    public static <T> RxLifeTransformer<T> composeOnMain(LifecycleOwner owner, Event event) {
+        return new RxLifeTransformer<T>() {
+            @Override
+            public SingleSource<T> apply(Single<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread())
+                        .onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
 
-    public static <T> FlowableTransformer<T, T> flowableOnMain(LifecycleOwner owner) {
-        return flowableOnMain(owner, Event.ON_DESTROY);
-    }
+            @Override
+            public MaybeSource<T> apply(Maybe<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread())
+                        .onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
 
-    public static <T> FlowableTransformer<T, T> flowableOnMain(LifecycleOwner owner, Event event) {
-        return observable -> observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(subscriber -> {
-                    return new LifeSubscriber<>(owner, subscriber, event);
-                });
-    }
+            @Override
+            public Publisher<T> apply(Flowable<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread())
+                        .onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
 
-    public static <T> SingleTransformer<T, T> single(LifecycleOwner owner) {
-        return single(owner, Event.ON_DESTROY);
-    }
+            @Override
+            public CompletableSource apply(Completable upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread())
+                        .onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
 
-    public static <T> SingleTransformer<T, T> single(LifecycleOwner owner, Event event) {
-        return upstream -> upstream.onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeSingleObserver<>(owner, observer, event);
-                });
-    }
-
-    public static <T> SingleTransformer<T, T> singleOnMain(LifecycleOwner owner) {
-        return singleOnMain(owner, Event.ON_DESTROY);
-    }
-
-    public static <T> SingleTransformer<T, T> singleOnMain(LifecycleOwner owner, Event event) {
-        return observable -> observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeSingleObserver<>(owner, observer, event);
-                });
-    }
-
-    public static <T> MaybeTransformer<T, T> maybe(LifecycleOwner owner) {
-        return maybe(owner, Event.ON_DESTROY);
-    }
-
-    public static <T> MaybeTransformer<T, T> maybe(LifecycleOwner owner, Event event) {
-        return upstream -> upstream.onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeMaybeObserver<T>(owner, observer, event);
-                });
-    }
-
-    public static <T> MaybeTransformer<T, T> maybeOnMain(LifecycleOwner owner) {
-        return maybeOnMain(owner, Event.ON_DESTROY);
-    }
-
-    public static <T> MaybeTransformer<T, T> maybeOnMain(LifecycleOwner owner, Event event) {
-        return upstream -> upstream
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(observer -> {
-                    return new LifeMaybeObserver<T>(owner, observer, event);
-                });
-    }
-
-
-    public static CompletableTransformer completable(LifecycleOwner owner) {
-        return completable(owner, Event.ON_DESTROY);
-    }
-
-    public static CompletableTransformer completable(LifecycleOwner owner, Event event) {
-        return upstream -> upstream.onTerminateDetach()
-                .lift(subscriber -> {
-                    return new LifeCompletableObserver(owner, subscriber, event);
-                });
-    }
-
-    public static CompletableTransformer completableOnMain(LifecycleOwner owner) {
-        return completableOnMain(owner, Event.ON_DESTROY);
-    }
-
-    public static CompletableTransformer completableOnMain(LifecycleOwner owner, Event event) {
-        return upstream -> upstream
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(subscriber -> {
-                    return new LifeCompletableObserver(owner, subscriber, event);
-                });
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread())
+                        .onTerminateDetach()
+                        .lift(lift(owner, event));
+            }
+        };
     }
 }

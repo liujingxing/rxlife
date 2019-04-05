@@ -24,7 +24,8 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void observable(View view) {
         Observable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.observable(RxLifeActivity.this, Event.ON_STOP))
+//                .lift(RxLife.lift(this))
+                .compose(RxLife.compose(this, Event.ON_STOP))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -32,7 +33,8 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void flowable(View view) {
         Flowable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.flowable(this))
+//                .lift(RxLife.lift(this))
+                .compose(RxLife.compose(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -40,7 +42,8 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void single(View view) {
         Single.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.single(this))
+//                .lift(RxLife.lift(this))
+                .compose(RxLife.compose(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -48,7 +51,8 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void maybe(View view) {
         Maybe.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.maybe(this))
+//                .lift(RxLife.lift(this))
+                .compose(RxLife.compose(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -56,7 +60,8 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void completable(View view) {
         Completable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.completable(this))
+//                .lift(RxLife.lift(this))
+                .compose(RxLife.compose(this))
                 .subscribe(() -> {
                     Log.e("LJX", "run");
                 });
