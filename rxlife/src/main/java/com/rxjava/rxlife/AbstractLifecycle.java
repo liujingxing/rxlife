@@ -17,10 +17,12 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019/4/3
  * Time: 11:04
  */
-public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements GenericLifecycleObserver, Disposable, Runnable {
+public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements GenericLifecycleObserver, Disposable {
 
     private final    Lifecycle mLifecycle;
     private volatile Event     mEvent;
+
+    private final Object mObject = new Object();
 
     public AbstractLifecycle(LifecycleOwner lifecycleOwner, Event event) {
         mEvent = event;
@@ -35,25 +37,39 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
         }
     }
 
-    @MainThread
-    @Override
-    public void run() {
-        removeObserver();
-    }
-
-    @MainThread
-    protected final void addObserver() {
+    /**
+     * 事件订阅时调用此方法
+     */
+    protected final void addObserver() throws InterruptedException {
         if (isMainThread()) {
-            mLifecycle.addObserver(this);
-        } else
-            throw new RuntimeException("only be invoked in the UI thread");
+            addObserverOnMain();
+        } else {
+            final Object object = mObject;
+            AndroidSchedulers.mainThread().scheduleDirect(() -> {
+                addObserverOnMain();
+                synchronized (object) {
+                    object.notifyAll();
+                }
+            });
+            synchronized (object) {
+                object.wait();
+            }
+        }
     }
 
+    @MainThread
+    private void addObserverOnMain() {
+        mLifecycle.addObserver(this);
+    }
+
+    /**
+     * onError/onComplete 时调用此方法
+     */
     protected final void removeObserver() {
         if (isMainThread()) {
             mLifecycle.removeObserver(this);
         } else {
-            AndroidSchedulers.mainThread().scheduleDirect(this);
+            AndroidSchedulers.mainThread().scheduleDirect(this::removeObserver);
         }
     }
 
