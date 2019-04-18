@@ -9,13 +9,13 @@
 Gradle引用方法
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.3'
+       implementation 'com.rxjava.rxlife:rxlife:1.0.4'
     }
 
 在Activity/Fragment 的 onDestroy 自动断开
 
         Observable.timer(5, TimeUnit.SECONDS)
-                .lift(RxLife.lift(this))
+                .as(RxLife.as(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -23,72 +23,41 @@ Gradle引用方法
 Activity/Fragment 的 onStop 自动断开
 
         Observable.timer(5, TimeUnit.SECONDS)
-                .lift(RxLife.lift(this, Event.ON_STOP))
+                .as(RxLife.as(this, Event.ON_STOP))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
 
 
-在Activity/Fragment 的 onDestroy 自动断开，并中断上下游的引用
+在Activity/Fragment 的 onDestroy 自动断开，并中断上下游的引用，在主线程回调
 
         Observable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.compose(this))
+                .as(RxLife.asOnMain(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
 
-         //等同于
-        Observable.timer(5, TimeUnit.SECONDS)
-                .onTerminateDetach()
-                .lift(RxLife.lift(this))
-                .subscribe(aLong -> {
-                    Log.e("LJX", "accept =" + aLong);
-                });
-
-Activity/Fragment 的 onStop 自动断开，并中断上下游的引用
+Activity/Fragment 的 onStop 自动断开，并中断上下游的引用，在主线程回调
 
         Observable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.compose(this,Event.ON_STOP))
-                .subscribe(aLong -> {
-                    Log.e("LJX", "accept =" + aLong);
-                });
-
-         //等同于
-        Observable.timer(5, TimeUnit.SECONDS)
-                .onTerminateDetach()
-                .lift(RxLife.lift(this,Event.ON_STOP))
-                .subscribe(aLong -> {
-                    Log.e("LJX", "accept =" + aLong);
-                });
-
-
-Activity/Fragment 的 onStop 自动断开，并中断上下游的引用，并在主线程回调
-
-        Observable.timer(5, TimeUnit.SECONDS)
-                .compose(RxLife.composeOnMain(this, Event.ON_STOP))
-                .subscribe(aLong -> {
-                    Log.e("LJX", "accept =" + aLong);
-                });
-
-         //等同于
-        Observable.timer(5, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .onTerminateDetach()
-                .lift(RxLife.lift(this, Event.ON_STOP))
+                .as(RxLife.asOnMain(this,Event.ON_STOP))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
 
 
 
-RxLife类里面的6个静态方法，皆适用于Flowable、Observable、Single、Maybe、Completable这5个被观察者对象
+RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
+使用as操作符，无需担心下游有自己的事件
 
 
 注意！！！！！！！
 结合RxLife使用Observable的lift、compose操作符时，下游除了subscribe操作符外最好不要有其它的操作符，前面讲过，当调用Disposable.dispose()时，它会往上一层一层的调用上游的dispose()方法，如果下游有Disposable对象，是调用不到的，如果此时下游有自己的事件需要发送，那么就无法拦截了
 --------------------- 
 
-
+1.0.4 更新日志
+  1、新增as操作符，规定下游只能使用subscribe操作符
+  2、lift、compose 标记为过时，在未来的版本中将会删除，请使用as操作符替代
 
 
 
