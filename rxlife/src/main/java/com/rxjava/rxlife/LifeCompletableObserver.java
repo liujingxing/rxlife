@@ -20,8 +20,8 @@ final class LifeCompletableObserver extends AbstractLifecycle<Disposable> implem
 
     private CompletableObserver downstream;
 
-    LifeCompletableObserver(LifecycleOwner lifecycleOwner, CompletableObserver downstream, Event event) {
-        super(lifecycleOwner, event);
+    LifeCompletableObserver(CompletableObserver downstream, LifecycleOwner owner, Event event) {
+        super(owner, event);
         this.downstream = downstream;
     }
 

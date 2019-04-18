@@ -17,12 +17,12 @@ import io.reactivex.plugins.RxJavaPlugins;
  * Date: 2019/3/30
  * Time: 21:16
  */
- final class LifeSingleObserver<T> extends AbstractLifecycle<Disposable> implements SingleObserver<T> {
+final class LifeSingleObserver<T> extends AbstractLifecycle<Disposable> implements SingleObserver<T> {
 
     private SingleObserver<? super T> downstream;
 
-    LifeSingleObserver(LifecycleOwner lifecycleOwner, SingleObserver<? super T> downstream, Event event) {
-        super(lifecycleOwner, event);
+    LifeSingleObserver(SingleObserver<? super T> downstream, LifecycleOwner owner, Event event) {
+        super(owner, event);
         this.downstream = downstream;
     }
 

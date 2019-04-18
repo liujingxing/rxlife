@@ -21,8 +21,8 @@ final class LifeMaybeObserver<T> extends AbstractLifecycle<Disposable> implement
 
     private MaybeObserver<? super T> downstream;
 
-    LifeMaybeObserver(LifecycleOwner lifecycleOwner, MaybeObserver<? super T> downstream, Event event) {
-        super(lifecycleOwner, event);
+    LifeMaybeObserver(MaybeObserver<? super T> downstream, LifecycleOwner owner, Event event) {
+        super(owner, event);
         this.downstream = downstream;
     }
 

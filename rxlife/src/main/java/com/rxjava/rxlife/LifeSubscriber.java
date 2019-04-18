@@ -22,8 +22,8 @@ final class LifeSubscriber<T> extends AbstractLifecycle<Subscription> implements
 
     private Subscriber<? super T> downstream;
 
-    LifeSubscriber(LifecycleOwner lifecycleOwner, Subscriber<? super T> downstream, Event event) {
-        super(lifecycleOwner, event);
+    LifeSubscriber(Subscriber<? super T> downstream, LifecycleOwner owner, Event event) {
+        super(owner, event);
         this.downstream = downstream;
     }
 
