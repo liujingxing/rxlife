@@ -9,7 +9,7 @@
 Gradle引用方法
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.2'
+       implementation 'com.rxjava.rxlife:rxlife:1.0.3'
     }
 
 在Activity/Fragment 的 onDestroy 自动断开
