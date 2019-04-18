@@ -56,7 +56,9 @@ RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observabl
 --------------------- 
 
 1.0.4 更新日志
+
   1、新增as操作符，规定下游只能使用subscribe操作符
+
   2、lift、compose 标记为过时，在未来的版本中将会删除，请使用as操作符替代
 
 
