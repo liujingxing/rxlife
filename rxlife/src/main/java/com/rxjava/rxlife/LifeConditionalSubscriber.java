@@ -4,11 +4,12 @@ package com.rxjava.rxlife;
 import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleOwner;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import org.reactivestreams.Subscription;
+
 import io.reactivex.exceptions.CompositeException;
 import io.reactivex.exceptions.Exceptions;
-import io.reactivex.internal.disposables.DisposableHelper;
+import io.reactivex.internal.fuseable.ConditionalSubscriber;
+import io.reactivex.internal.subscriptions.SubscriptionHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**
@@ -17,24 +18,24 @@ import io.reactivex.plugins.RxJavaPlugins;
  * Date: 2019/3/30
  * Time: 21:16
  */
- final class LifeObserver<T> extends AbstractLifecycle<Disposable> implements Observer<T> {
+final class LifeConditionalSubscriber<T> extends AbstractLifecycle<Subscription> implements ConditionalSubscriber<T> {
 
-    private Observer<? super T> downstream;
+    private ConditionalSubscriber<? super T> downstream;
 
-    LifeObserver(Observer<? super T> downstream, LifecycleOwner owner, Event event) {
-        super(owner, event);
+    LifeConditionalSubscriber(ConditionalSubscriber<? super T> downstream, LifecycleOwner lifecycleOwner, Event event) {
+        super(lifecycleOwner, event);
         this.downstream = downstream;
     }
 
     @Override
-    public void onSubscribe(Disposable d) {
-        if (DisposableHelper.setOnce(this, d)) {
+    public void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.setOnce(this, s)) {
             try {
                 addObserver();
-                downstream.onSubscribe(d);
+                downstream.onSubscribe(s);
             } catch (Throwable ex) {
                 Exceptions.throwIfFatal(ex);
-                d.dispose();
+                s.cancel();
                 onError(ex);
             }
         }
@@ -47,7 +48,7 @@ import io.reactivex.plugins.RxJavaPlugins;
             downstream.onNext(t);
         } catch (Throwable e) {
             Exceptions.throwIfFatal(e);
-            get().dispose();
+            get().cancel();
             onError(e);
         }
     }
@@ -58,7 +59,7 @@ import io.reactivex.plugins.RxJavaPlugins;
             RxJavaPlugins.onError(t);
             return;
         }
-        lazySet(DisposableHelper.DISPOSED);
+        lazySet(SubscriptionHelper.CANCELLED);
         try {
             removeObserver();
             downstream.onError(t);
@@ -71,7 +72,7 @@ import io.reactivex.plugins.RxJavaPlugins;
     @Override
     public void onComplete() {
         if (isDisposed()) return;
-        lazySet(DisposableHelper.DISPOSED);
+        lazySet(SubscriptionHelper.CANCELLED);
         try {
             removeObserver();
             downstream.onComplete();
@@ -83,11 +84,19 @@ import io.reactivex.plugins.RxJavaPlugins;
 
     @Override
     public boolean isDisposed() {
-        return DisposableHelper.isDisposed(get());
+        return get() == SubscriptionHelper.CANCELLED;
     }
 
     @Override
     public void dispose() {
-        DisposableHelper.dispose(this);
+        SubscriptionHelper.cancel(this);
+    }
+
+    @Override
+    public boolean tryOnNext(T t) {
+        if (!isDisposed()) {
+            return downstream.tryOnNext(t);
+        }
+        return false;
     }
 }

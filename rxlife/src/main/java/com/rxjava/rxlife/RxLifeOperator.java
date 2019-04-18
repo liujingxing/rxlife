@@ -29,27 +29,27 @@ public final class RxLifeOperator<T> implements
 
     @Override
     public Subscriber<? super T> apply(Subscriber<? super T> subscriber) throws Exception {
-        return new LifeSubscriber<>(mLifecycleOwner, subscriber, mEvent);
+        return new LifeSubscriber<>(subscriber, mLifecycleOwner, mEvent);
     }
 
     @Override
     public Observer<? super T> apply(Observer<? super T> observer) throws Exception {
-        return new LifeObserver<>(mLifecycleOwner, observer, mEvent);
+        return new LifeObserver<>(observer, mLifecycleOwner, mEvent);
     }
 
     @Override
     public SingleObserver<? super T> apply(SingleObserver<? super T> observer) throws Exception {
-        return new LifeSingleObserver<>(mLifecycleOwner, observer, mEvent);
+        return new LifeSingleObserver<>(observer, mLifecycleOwner, mEvent);
     }
 
     @Override
     public MaybeObserver<? super T> apply(MaybeObserver<? super T> observer) throws Exception {
-        return new LifeMaybeObserver<>(mLifecycleOwner, observer, mEvent);
+        return new LifeMaybeObserver<>(observer, mLifecycleOwner, mEvent);
     }
 
     @Override
     public CompletableObserver apply(CompletableObserver observer) throws Exception {
-        return new LifeCompletableObserver(mLifecycleOwner, observer, mEvent);
+        return new LifeCompletableObserver(observer, mLifecycleOwner, mEvent);
     }
 
 }

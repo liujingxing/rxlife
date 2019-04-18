@@ -1,7 +1,5 @@
 package com.example.rxlife;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle.Event;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +13,6 @@ import io.reactivex.*;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
-@SuppressLint("CheckResult")
 public class RxLifeActivity extends AppCompatActivity {
 
     @Override
@@ -25,18 +22,16 @@ public class RxLifeActivity extends AppCompatActivity {
     }
 
     public void observable(View view) {
-        Observable.timer(5, TimeUnit.SECONDS)
-//                .lift(RxLife.lift(this))
-                .compose(RxLife.compose(this, Event.ON_STOP))
+        Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
+                .as(RxLife.asOnMain(this))
                 .subscribe(aLong -> {
-                    Log.e("LJX", "accept =" + aLong);
+                    Log.e("LJX", "accept=" + aLong + " Thread=" + Thread.currentThread());
                 });
     }
 
     public void flowable(View view) {
-        Flowable.timer(5, TimeUnit.SECONDS)
-//                .lift(RxLife.lift(this))
-                .compose(RxLife.compose(this))
+        Flowable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
+                .as(RxLife.asOnMain(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -44,8 +39,7 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void single(View view) {
         Single.timer(5, TimeUnit.SECONDS)
-//                .lift(RxLife.lift(this))
-                .compose(RxLife.compose(this))
+                .as(RxLife.asOnMain(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -53,8 +47,7 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void maybe(View view) {
         Maybe.timer(5, TimeUnit.SECONDS)
-//                .lift(RxLife.lift(this))
-                .compose(RxLife.compose(this))
+                .as(RxLife.asOnMain(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
@@ -62,8 +55,7 @@ public class RxLifeActivity extends AppCompatActivity {
 
     public void completable(View view) {
         Completable.timer(5, TimeUnit.SECONDS)
-//                .lift(RxLife.lift(this))
-                .compose(RxLife.compose(this))
+                .as(RxLife.asOnMain(this))
                 .subscribe(() -> {
                     Log.e("LJX", "run");
                 });
@@ -72,7 +64,7 @@ public class RxLifeActivity extends AppCompatActivity {
     public void leakcanary(View view) {
         Observable.timer(100, TimeUnit.MILLISECONDS)
                 .map(new MyFunction<>())
-                .lift(RxLife.lift(this))
+                .as(RxLife.asOnMain(this))
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
