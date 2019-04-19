@@ -37,14 +37,29 @@ Activity/Fragment 的 onStop 自动断开
                     Log.e("LJX", "accept =" + aLong);
                 });
 
-Activity/Fragment 的 onStop 自动断开，并中断上下游的引用，在主线程回调
-
+                //等价于
         Observable.timer(5, TimeUnit.SECONDS)
-                .as(RxLife.asOnMain(this,Event.ON_STOP))
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxLife.as(this))
                 .subscribe(aLong -> {
                     Log.e("LJX", "accept =" + aLong);
                 });
 
+Activity/Fragment 的 onStop 自动断开，并中断上下游的引用，在主线程回调
+
+        Observable.timer(5, TimeUnit.SECONDS)
+                .as(RxLife.asOnMain(this, Event.ON_STOP))
+                .subscribe(aLong -> {
+                    Log.e("LJX", "accept =" + aLong);
+                });
+
+                //等价于
+        Observable.timer(5, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxLife.as(this, Event.ON_STOP))
+                .subscribe(aLong -> {
+                    Log.e("LJX", "accept =" + aLong);
+                });
 
 
 RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
