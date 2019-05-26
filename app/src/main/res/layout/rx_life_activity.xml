@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.rxlife.CustomLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -8,6 +9,7 @@
     tools:context=".RxLifeActivity">
 
     <Button
+        android:id="@+id/observable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="observable"
@@ -45,8 +47,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="leakcanary"
-        android:text="leakcanary"
+        android:onClick="leakCanary"
+        android:text="leakCanary"
         android:textAllCaps="false" />
 
-</LinearLayout>
+</com.example.rxlife.CustomLayout>

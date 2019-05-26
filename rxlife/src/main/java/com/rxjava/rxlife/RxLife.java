@@ -2,6 +2,7 @@ package com.rxjava.rxlife;
 
 import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleOwner;
+import android.view.View;
 
 import org.reactivestreams.Publisher;
 
@@ -33,37 +34,56 @@ public final class RxLife {
     }
 
     private static <T> RxConverter<T> as(LifecycleOwner owner, Event event, boolean onMain) {
+        return as(ScopeLifecycle.from(owner, event), onMain);
+    }
+
+    public static <T> RxConverter<T> as(View view) {
+        return as(ScopeView.from(view), false);
+    }
+
+    public static <T> RxConverter<T> asOnMain(View view) {
+        return as(ScopeView.from(view), true);
+    }
+
+    public static <T> RxConverter<T> as(Scope scope) {
+        return as(scope, false);
+    }
+
+    public static <T> RxConverter<T> asOnMain(Scope scope) {
+        return as(scope, true);
+    }
+
+    private static <T> RxConverter<T> as(Scope scope, boolean onMain) {
         return new RxConverter<T>() {
 
             @Override
             public ObservableLife<T> apply(Observable<T> upstream) {
-                return new ObservableLife<>(upstream, owner, event, onMain);
+                return new ObservableLife<>(upstream, scope, onMain);
             }
 
             @Override
             public FlowableLife<T> apply(Flowable<T> upstream) {
-                return new FlowableLife<>(upstream, owner, event, onMain);
+                return new FlowableLife<>(upstream, scope, onMain);
             }
 
             @Override
             public ParallelFlowableLife<T> apply(ParallelFlowable<T> upstream) {
-                return new ParallelFlowableLife<>(upstream, owner, event, onMain);
+                return new ParallelFlowableLife<>(upstream, scope, onMain);
             }
 
             @Override
             public MaybeLife<T> apply(Maybe<T> upstream) {
-                return new MaybeLife<>(upstream, owner, event, onMain);
+                return new MaybeLife<>(upstream, scope, onMain);
             }
 
             @Override
             public SingleLife<T> apply(Single<T> upstream) {
-                return new SingleLife<>(upstream, owner, event, onMain);
+                return new SingleLife<>(upstream, scope, onMain);
             }
-
 
             @Override
             public CompletableLife apply(Completable upstream) {
-                return new CompletableLife(upstream, owner, event, onMain);
+                return new CompletableLife(upstream, scope, onMain);
             }
         };
     }
@@ -75,7 +95,7 @@ public final class RxLife {
 
     @Deprecated
     public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner, Event event) {
-        return new RxLifeOperator<>(lifecycleOwner, event);
+        return new RxLifeOperator<>(ScopeLifecycle.from(lifecycleOwner, event));
     }
 
     @Deprecated
@@ -89,31 +109,31 @@ public final class RxLife {
             @Override
             public SingleSource<T> apply(Single<T> upstream) {
                 return upstream.onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .lift(lift(owner, event));
             }
 
             @Override
             public MaybeSource<T> apply(Maybe<T> upstream) {
                 return upstream.onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .lift(lift(owner, event));
             }
 
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream.onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .lift(lift(owner, event));
             }
 
             @Override
             public CompletableSource apply(Completable upstream) {
                 return upstream.onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .lift(lift(owner, event));
             }
 
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
                 return upstream.onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .lift(lift(owner, event));
             }
         };
     }
@@ -129,36 +149,36 @@ public final class RxLife {
             @Override
             public SingleSource<T> apply(Single<T> upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread())
-                        .onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .onTerminateDetach()
+                    .lift(lift(owner, event));
             }
 
             @Override
             public MaybeSource<T> apply(Maybe<T> upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread())
-                        .onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .onTerminateDetach()
+                    .lift(lift(owner, event));
             }
 
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread())
-                        .onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .onTerminateDetach()
+                    .lift(lift(owner, event));
             }
 
             @Override
             public CompletableSource apply(Completable upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread())
-                        .onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .onTerminateDetach()
+                    .lift(lift(owner, event));
             }
 
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread())
-                        .onTerminateDetach()
-                        .lift(lift(owner, event));
+                    .onTerminateDetach()
+                    .lift(lift(owner, event));
             }
         };
     }

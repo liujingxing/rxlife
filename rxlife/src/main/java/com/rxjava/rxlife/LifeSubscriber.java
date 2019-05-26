@@ -1,9 +1,6 @@
 package com.rxjava.rxlife;
 
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
@@ -22,8 +19,8 @@ final class LifeSubscriber<T> extends AbstractLifecycle<Subscription> implements
 
     private Subscriber<? super T> downstream;
 
-    LifeSubscriber(Subscriber<? super T> downstream, LifecycleOwner owner, Event event) {
-        super(owner, event);
+    LifeSubscriber(Subscriber<? super T> downstream, Scope scope) {
+        super(scope);
         this.downstream = downstream;
     }
 

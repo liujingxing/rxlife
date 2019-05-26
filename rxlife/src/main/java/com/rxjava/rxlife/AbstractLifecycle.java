@@ -1,9 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.GenericLifecycleObserver;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
 import android.os.Looper;
 import android.support.annotation.MainThread;
 
@@ -17,31 +13,21 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019/4/3
  * Time: 11:04
  */
-public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements GenericLifecycleObserver, Disposable {
+public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements Disposable {
 
-    private final    Lifecycle mLifecycle;
-    private volatile Event     mEvent;
+    private Scope scope;
 
     private final Object mObject = new Object();
 
-    public AbstractLifecycle(LifecycleOwner lifecycleOwner, Event event) {
-        mEvent = event;
-        mLifecycle = lifecycleOwner.getLifecycle();
-    }
-
-    @Override
-    public final void onStateChanged(LifecycleOwner source, Event event) {
-        if (event.equals(mEvent)) {
-            dispose();
-            removeObserver();
-        }
+    public AbstractLifecycle(Scope scope) {
+        this.scope = scope;
     }
 
     /**
      * 事件订阅时调用此方法
      */
-    protected final void addObserver() throws InterruptedException {
-        if (isMainThread()) {
+    protected final void addObserver() throws Exception {
+        if (isMainThread() || scope instanceof ScopeView) {
             addObserverOnMain();
         } else {
             final Object object = mObject;
@@ -59,15 +45,15 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
 
     @MainThread
     private void addObserverOnMain() {
-        mLifecycle.addObserver(this);
+        scope.addScopeListener(this);
     }
 
     /**
      * onError/onComplete 时调用此方法
      */
     protected final void removeObserver() {
-        if (isMainThread()) {
-            mLifecycle.removeObserver(this);
+        if (isMainThread() || scope instanceof ScopeView) {
+            scope.removeScopeListener();
         } else {
             AndroidSchedulers.mainThread().scheduleDirect(this::removeObserver);
         }

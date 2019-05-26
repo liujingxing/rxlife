@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,8 +21,8 @@ public class ObservableLife<T> extends RxSource<Observer<? super T>> {
 
     private Observable<T> upStream;
 
-    ObservableLife(Observable<T> upStream, LifecycleOwner owner, Event event, boolean onMain) {
-        super(owner, event, onMain);
+    ObservableLife(Observable<T> upStream, Scope scope, boolean onMain) {
+        super(scope, onMain);
         this.upStream = upStream;
     }
 
@@ -90,6 +87,6 @@ public class ObservableLife<T> extends RxSource<Observer<? super T>> {
         if (onMain) {
             upStream = upStream.observeOn(AndroidSchedulers.mainThread());
         }
-        upStream.onTerminateDetach().subscribe(new LifeObserver<>(observer, owner, event));
+        upStream.onTerminateDetach().subscribe(new LifeObserver<>(observer, scope));
     }
 }

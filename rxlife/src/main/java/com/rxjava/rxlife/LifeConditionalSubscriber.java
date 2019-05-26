@@ -1,9 +1,6 @@
 package com.rxjava.rxlife;
 
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import org.reactivestreams.Subscription;
 
 import io.reactivex.exceptions.CompositeException;
@@ -22,8 +19,8 @@ final class LifeConditionalSubscriber<T> extends AbstractLifecycle<Subscription>
 
     private ConditionalSubscriber<? super T> downstream;
 
-    LifeConditionalSubscriber(ConditionalSubscriber<? super T> downstream, LifecycleOwner lifecycleOwner, Event event) {
-        super(lifecycleOwner, event);
+    LifeConditionalSubscriber(ConditionalSubscriber<? super T> downstream, Scope scope) {
+        super(scope);
         this.downstream = downstream;
     }
 

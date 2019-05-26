@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,8 +21,8 @@ public class CompletableLife extends RxSource<CompletableObserver> {
 
     private Completable upStream;
 
-    CompletableLife(Completable upStream, LifecycleOwner owner, Event event, boolean onMain) {
-        super(owner, event, onMain);
+    CompletableLife(Completable upStream, Scope scope, boolean onMain) {
+        super(scope, onMain);
         this.upStream = upStream;
     }
 
@@ -79,6 +76,6 @@ public class CompletableLife extends RxSource<CompletableObserver> {
         if (onMain) {
             upStream = upStream.observeOn(AndroidSchedulers.mainThread());
         }
-        upStream.onTerminateDetach().subscribe(new LifeCompletableObserver(observer, owner, event));
+        upStream.onTerminateDetach().subscribe(new LifeCompletableObserver(observer, scope));
     }
 }
