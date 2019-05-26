@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import org.reactivestreams.Subscriber;
 
 import io.reactivex.*;
@@ -19,37 +16,35 @@ public final class RxLifeOperator<T> implements
         MaybeOperator<T, T>,
         CompletableOperator {
 
-    private LifecycleOwner mLifecycleOwner;
-    private Event          mEvent;
+    private Scope scope;
 
-    RxLifeOperator(LifecycleOwner lifecycleOwner, Event event) {
-        mLifecycleOwner = lifecycleOwner;
-        mEvent = event;
+    RxLifeOperator(Scope scope) {
+        this.scope = scope;
     }
 
     @Override
     public Subscriber<? super T> apply(Subscriber<? super T> subscriber) throws Exception {
-        return new LifeSubscriber<>(subscriber, mLifecycleOwner, mEvent);
+        return new LifeSubscriber<>(subscriber, scope);
     }
 
     @Override
     public Observer<? super T> apply(Observer<? super T> observer) throws Exception {
-        return new LifeObserver<>(observer, mLifecycleOwner, mEvent);
+        return new LifeObserver<>(observer, scope);
     }
 
     @Override
     public SingleObserver<? super T> apply(SingleObserver<? super T> observer) throws Exception {
-        return new LifeSingleObserver<>(observer, mLifecycleOwner, mEvent);
+        return new LifeSingleObserver<>(observer, scope);
     }
 
     @Override
     public MaybeObserver<? super T> apply(MaybeObserver<? super T> observer) throws Exception {
-        return new LifeMaybeObserver<>(observer, mLifecycleOwner, mEvent);
+        return new LifeMaybeObserver<>(observer, scope);
     }
 
     @Override
     public CompletableObserver apply(CompletableObserver observer) throws Exception {
-        return new LifeCompletableObserver(observer, mLifecycleOwner, mEvent);
+        return new LifeCompletableObserver(observer, scope);
     }
 
 }

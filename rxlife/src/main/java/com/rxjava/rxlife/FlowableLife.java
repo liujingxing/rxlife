@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
@@ -28,8 +25,8 @@ public class FlowableLife<T> extends RxSource<FlowableSubscriber<? super T>> {
 
     private Flowable<T> upStream;
 
-    FlowableLife(Flowable<T> upStream, LifecycleOwner owner, Event event, boolean onMain) {
-        super(owner, event, onMain);
+    FlowableLife(Flowable<T> upStream, Scope scope, boolean onMain) {
+        super(scope, onMain);
         this.upStream = upStream;
     }
 
@@ -95,6 +92,6 @@ public class FlowableLife<T> extends RxSource<FlowableSubscriber<? super T>> {
         if (onMain) {
             upStream = upStream.observeOn(AndroidSchedulers.mainThread());
         }
-        upStream.onTerminateDetach().subscribe(new LifeSubscriber<>(s, owner, event));
+        upStream.onTerminateDetach().subscribe(new LifeSubscriber<>(s, scope));
     }
 }

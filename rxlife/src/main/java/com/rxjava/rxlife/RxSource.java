@@ -12,9 +12,6 @@
  */
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -24,13 +21,11 @@ import io.reactivex.disposables.Disposable;
  */
 abstract class RxSource<E> {
 
-    LifecycleOwner owner;
-    Event          event;
-    boolean        onMain;
+    Scope   scope;
+    boolean onMain;
 
-    RxSource(LifecycleOwner owner, Event event, boolean onMain) {
-        this.owner = owner;
-        this.event = event;
+    RxSource(Scope scope, boolean onMain) {
+        this.scope = scope;
         this.onMain = onMain;
     }
 

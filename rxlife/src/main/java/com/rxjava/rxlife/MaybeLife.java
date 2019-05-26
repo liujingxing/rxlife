@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,8 +21,8 @@ public class MaybeLife<T> extends RxSource<MaybeObserver<? super T>> {
 
     private Maybe<T> upStream;
 
-    MaybeLife(Maybe<T> upStream, LifecycleOwner owner, Event event, boolean onMain) {
-        super(owner, event, onMain);
+    MaybeLife(Maybe<T> upStream, Scope scope, boolean onMain) {
+        super(scope, onMain);
         this.upStream = upStream;
     }
 
@@ -75,6 +72,6 @@ public class MaybeLife<T> extends RxSource<MaybeObserver<? super T>> {
         if (onMain) {
             upStream = upStream.observeOn(AndroidSchedulers.mainThread());
         }
-        upStream.onTerminateDetach().subscribe(new LifeMaybeObserver<>(observer, owner, event));
+        upStream.onTerminateDetach().subscribe(new LifeMaybeObserver<>(observer, scope));
     }
 }

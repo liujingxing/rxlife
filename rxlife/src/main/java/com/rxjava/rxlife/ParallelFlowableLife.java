@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import org.reactivestreams.Subscriber;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,14 +16,12 @@ import io.reactivex.parallel.ParallelFlowable;
 public class ParallelFlowableLife<T> {
 
     private ParallelFlowable<T> upStream;
-    private LifecycleOwner      owner;
-    private Event               event;
+    private Scope               scope;
     private boolean             onMain;
 
-    ParallelFlowableLife(ParallelFlowable<T> upStream, LifecycleOwner owner, Event event, boolean onMain) {
+    ParallelFlowableLife(ParallelFlowable<T> upStream, Scope scope, boolean onMain) {
         this.upStream = upStream;
-        this.owner = owner;
-        this.event = event;
+        this.scope = scope;
         this.onMain = onMain;
     }
 
@@ -43,9 +38,9 @@ public class ParallelFlowableLife<T> {
         for (int i = 0; i < n; i++) {
             Subscriber<? super T> a = subscribers[i];
             if (a instanceof ConditionalSubscriber) {
-                parents[i] = new LifeConditionalSubscriber<>((ConditionalSubscriber<? super T>) a, owner, event);
+                parents[i] = new LifeConditionalSubscriber<>((ConditionalSubscriber<? super T>) a, scope);
             } else {
-                parents[i] = new LifeSubscriber<>(a, owner, event);
+                parents[i] = new LifeSubscriber<>(a, scope);
             }
         }
         ParallelFlowable<T> upStream = this.upStream;

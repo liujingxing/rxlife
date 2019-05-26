@@ -1,8 +1,5 @@
 package com.rxjava.rxlife;
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,8 +22,8 @@ public class SingleLife<T> extends RxSource<SingleObserver<? super T>> {
 
     private Single<T> upStream;
 
-    SingleLife(Single<T> upStream, LifecycleOwner owner, Event event, boolean onMain) {
-        super(owner, event, onMain);
+    SingleLife(Single<T> upStream, Scope scope, boolean onMain) {
+        super(scope, onMain);
         this.upStream = upStream;
     }
 
@@ -81,6 +78,6 @@ public class SingleLife<T> extends RxSource<SingleObserver<? super T>> {
         if (onMain) {
             upStream = upStream.observeOn(AndroidSchedulers.mainThread());
         }
-        upStream.onTerminateDetach().subscribe(new LifeSingleObserver<>(observer, owner, event));
+        upStream.onTerminateDetach().subscribe(new LifeSingleObserver<>(observer, scope));
     }
 }

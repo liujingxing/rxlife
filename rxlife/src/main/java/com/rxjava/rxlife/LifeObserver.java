@@ -1,9 +1,5 @@
 package com.rxjava.rxlife;
 
-
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
@@ -17,12 +13,12 @@ import io.reactivex.plugins.RxJavaPlugins;
  * Date: 2019/3/30
  * Time: 21:16
  */
- final class LifeObserver<T> extends AbstractLifecycle<Disposable> implements Observer<T> {
+final class LifeObserver<T> extends AbstractLifecycle<Disposable> implements Observer<T> {
 
     private Observer<? super T> downstream;
 
-    LifeObserver(Observer<? super T> downstream, LifecycleOwner owner, Event event) {
-        super(owner, event);
+    LifeObserver(Observer<? super T> downstream, Scope scope) {
+        super(scope);
         this.downstream = downstream;
     }
 

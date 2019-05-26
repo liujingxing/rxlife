@@ -1,9 +1,6 @@
 package com.rxjava.rxlife;
 
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.MaybeObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
@@ -21,8 +18,8 @@ final class LifeMaybeObserver<T> extends AbstractLifecycle<Disposable> implement
 
     private MaybeObserver<? super T> downstream;
 
-    LifeMaybeObserver(MaybeObserver<? super T> downstream, LifecycleOwner owner, Event event) {
-        super(owner, event);
+    LifeMaybeObserver(MaybeObserver<? super T> downstream, Scope scope) {
+        super(scope);
         this.downstream = downstream;
     }
 

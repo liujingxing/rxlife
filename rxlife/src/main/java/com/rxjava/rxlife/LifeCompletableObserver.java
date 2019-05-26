@@ -1,9 +1,6 @@
 package com.rxjava.rxlife;
 
 
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
-
 import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.Exceptions;
@@ -20,8 +17,8 @@ final class LifeCompletableObserver extends AbstractLifecycle<Disposable> implem
 
     private CompletableObserver downstream;
 
-    LifeCompletableObserver(CompletableObserver downstream, LifecycleOwner owner, Event event) {
-        super(owner, event);
+    LifeCompletableObserver(CompletableObserver downstream,Scope scope) {
+        super(scope);
         this.downstream = downstream;
     }
 
