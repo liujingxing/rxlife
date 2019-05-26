@@ -9,10 +9,10 @@
 Gradle引用方法
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.4'
+       implementation 'com.rxjava.rxlife:rxlife:1.0.5'
        
        //AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.0.4'
+       implementation 'com.rxjava.rxlife:rxlife-x:1.0.5'
     }
 
 在Activity/Fragment 的 onDestroy 自动断开
@@ -72,12 +72,19 @@ RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observabl
 注意！！！！！！！
 结合RxLife使用Observable的lift、compose操作符时，下游除了subscribe操作符外最好不要有其它的操作符，前面讲过，当调用Disposable.dispose()时，它会往上一层一层的调用上游的dispose()方法，如果下游有Disposable对象，是调用不到的，如果此时下游有自己的事件需要发送，那么就无法拦截了
 --------------------- 
+更新日志
 
-1.0.4 更新日志
+1.0.5
+  - 引入作用域的概念，支持在View中自动中断RxJava管道
 
-  1、新增as操作符，规定下游只能使用subscribe操作符
+  - 对Kotlin简单适配，在kotlin中可使用life操作符绑定生命周期
 
-  2、lift、compose 标记为过时，在未来的版本中将会删除，请使用as操作符替代
+1.0.4
+
+  - 新增as操作符，规定下游只能使用subscribe操作符
+
+  - lift、compose 标记为过时，在未来的版本中将会删除，请使用as操作符替代
+
 
 
 
