@@ -18,12 +18,12 @@ public class ScopeViewModel extends ViewModel implements Scope {
 
     @Override
     public void onScopeStart(Disposable d) {
-        addDisposable(d);
+        addDisposable(d);//订阅事件时回调
     }
 
     @Override
     public void onScopeEnd() {
-
+        //事件正常结束时回调
     }
 
     private void addDisposable(Disposable disposable) {
@@ -42,7 +42,7 @@ public class ScopeViewModel extends ViewModel implements Scope {
 
     @Override
     protected void onCleared() {
-        super.onCleared();
-        dispose();
+        super.onCleared(); //Activity/Fragment 销毁时回调
+        dispose(); //中断RxJava管道
     }
 }
