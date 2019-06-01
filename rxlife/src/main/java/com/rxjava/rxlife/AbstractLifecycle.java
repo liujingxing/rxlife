@@ -27,7 +27,8 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
      * 事件订阅时调用此方法
      */
     protected final void addObserver() throws Exception {
-        if (isMainThread() || scope instanceof ScopeView) {
+        //Lifecycle添加监听器需要在主线程执行
+        if (isMainThread() || !(scope instanceof LifecycleScope)) {
             addObserverOnMain();
         } else {
             final Object object = mObject;
@@ -45,15 +46,16 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
 
     @MainThread
     private void addObserverOnMain() {
-        scope.addScopeListener(this);
+        scope.onScopeStart(this);
     }
 
     /**
      * onError/onComplete 时调用此方法
      */
-    protected final void removeObserver() {
-        if (isMainThread() || scope instanceof ScopeView) {
-            scope.removeScopeListener();
+    final void removeObserver() {
+        //Lifecycle移除监听器需要在主线程执行
+        if (isMainThread() || !(scope instanceof LifecycleScope)) {
+            scope.onScopeEnd();
         } else {
             AndroidSchedulers.mainThread().scheduleDirect(this::removeObserver);
         }

@@ -15,10 +15,10 @@ public interface Scope {
      *
      * @param d Disposable
      */
-    void addScopeListener(Disposable d);
+    void onScopeStart(Disposable d);
 
     /**
-     * onError/onComplete 时调用此方法
+     * onError/onComplete 时调回调此方法，即事件正常结束时回调
      */
-    void removeScopeListener();
+    void onScopeEnd();
 }

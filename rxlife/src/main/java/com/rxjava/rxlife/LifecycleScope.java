@@ -13,25 +13,25 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-26
  * Time: 18:17
  */
-public class ScopeLifecycle implements Scope, GenericLifecycleObserver {
+public final class LifecycleScope implements Scope, GenericLifecycleObserver {
 
-    private Lifecycle  lifecycle;
-    private Event      event;
+    private final Lifecycle lifecycle;
+    private final Event event;
     private Disposable disposable;
 
-    private ScopeLifecycle(Lifecycle lifecycle, Event event) {
+    private LifecycleScope(Lifecycle lifecycle, Event event) {
         this.lifecycle = lifecycle;
         this.event = event;
     }
 
-    static ScopeLifecycle from(LifecycleOwner owner, Event event) {
-        return new ScopeLifecycle(owner.getLifecycle(), event);
+    static LifecycleScope from(LifecycleOwner owner, Event event) {
+        return new LifecycleScope(owner.getLifecycle(), event);
     }
 
     @Override
-    public void addScopeListener(Disposable d) {
+    public void onScopeStart(Disposable d) {
         this.disposable = d;
-        removeScopeListener();
+        onScopeEnd();
         final Lifecycle lifecycle = this.lifecycle;
         if (lifecycle == null)
             throw new NullPointerException("lifecycle is null");
@@ -39,7 +39,7 @@ public class ScopeLifecycle implements Scope, GenericLifecycleObserver {
     }
 
     @Override
-    public void removeScopeListener() {
+    public void onScopeEnd() {
         final Lifecycle lifecycle = this.lifecycle;
         if (lifecycle == null)
             throw new NullPointerException("lifecycle is null");

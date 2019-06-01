@@ -1,5 +1,6 @@
 package com.example.rxlife
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -15,8 +16,22 @@ class RxLifeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rx_life_activity)
-        observable.text = "Observable.intervalRange"
     }
+
+    fun observableByView(view: View) {
+        customLayout.startInterval();
+    }
+
+    fun observableByVM(view: View) {
+        //注:不能使用new 关键字创建MyViewModel对象，否则MyViewModel感知不到生命周期
+        val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+    }
+
+    fun observableByPresenter(view: View) {
+        val presenter = Presenter()
+        lifecycle.addObserver(presenter) //添加生命周期回调，使Presenter感知生命周期
+    }
+
 
     fun observable(view: View) {
         Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)

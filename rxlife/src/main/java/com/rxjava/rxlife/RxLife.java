@@ -34,15 +34,15 @@ public final class RxLife {
     }
 
     private static <T> RxConverter<T> as(LifecycleOwner owner, Event event, boolean onMain) {
-        return as(ScopeLifecycle.from(owner, event), onMain);
+        return as(LifecycleScope.from(owner, event), onMain);
     }
 
     public static <T> RxConverter<T> as(View view) {
-        return as(ScopeView.from(view), false);
+        return as(ViewScope.from(view), false);
     }
 
     public static <T> RxConverter<T> asOnMain(View view) {
-        return as(ScopeView.from(view), true);
+        return as(ViewScope.from(view), true);
     }
 
     public static <T> RxConverter<T> as(Scope scope) {
@@ -95,7 +95,7 @@ public final class RxLife {
 
     @Deprecated
     public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner, Event event) {
-        return new RxLifeOperator<>(ScopeLifecycle.from(lifecycleOwner, event));
+        return new RxLifeOperator<>(LifecycleScope.from(lifecycleOwner, event));
     }
 
     @Deprecated
