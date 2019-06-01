@@ -18,9 +18,10 @@ import io.reactivex.Observable;
  */
 public class Presenter extends BaseScope implements GenericLifecycleObserver {
 
-    public Presenter() {
+    public Presenter(LifecycleOwner owner) {
+        owner.getLifecycle().addObserver(this);  //添加生命周期监听
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.asOnMain(this))
+            .as(RxLife.as(this)) //这里的this 为Scope接口对象
             .subscribe(aLong -> {
                 Log.e("LJX", "accept aLong=" + aLong);
             });
@@ -31,7 +32,7 @@ public class Presenter extends BaseScope implements GenericLifecycleObserver {
         //Activity/Fragment 生命周期回调
         if (event == Event.ON_DESTROY) {  //Activity/Fragment 销毁
             source.getLifecycle().removeObserver(this);
-            dispose();
+            dispose(); //中断RxJava管道
         }
     }
 }

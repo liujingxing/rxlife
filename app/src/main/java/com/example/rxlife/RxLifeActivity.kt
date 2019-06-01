@@ -28,8 +28,7 @@ class RxLifeActivity : AppCompatActivity() {
     }
 
     fun observableByPresenter(view: View) {
-        val presenter = Presenter()
-        lifecycle.addObserver(presenter) //添加生命周期回调，使Presenter感知生命周期
+        val presenter = Presenter(this)
     }
 
 
@@ -99,5 +98,9 @@ class RxLifeActivity : AppCompatActivity() {
 
             return t
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
