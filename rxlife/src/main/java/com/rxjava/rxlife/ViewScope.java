@@ -12,21 +12,21 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-26
  * Time: 18:17
  */
-public class ScopeView implements Scope, OnAttachStateChangeListener {
+public final class ViewScope implements Scope, OnAttachStateChangeListener {
 
-    private View       view;
+    private final View view;
     private Disposable disposable;
 
-    private ScopeView(View view) {
+    private ViewScope(View view) {
         this.view = view;
     }
 
-    static ScopeView from(View view) {
-        return new ScopeView(view);
+    static ViewScope from(View view) {
+        return new ViewScope(view);
     }
 
     @Override
-    public void addScopeListener(Disposable d) {
+    public void onScopeStart(Disposable d) {
         disposable = d;
         final View view = this.view;
         if (view == null)
@@ -39,7 +39,7 @@ public class ScopeView implements Scope, OnAttachStateChangeListener {
     }
 
     @Override
-    public void removeScopeListener() {
+    public void onScopeEnd() {
         final View view = this.view;
         if (view == null) return;
         view.removeOnAttachStateChangeListener(this);

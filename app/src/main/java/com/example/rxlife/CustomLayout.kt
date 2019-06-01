@@ -16,13 +16,8 @@ import java.util.concurrent.TimeUnit
  */
 class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
 
-    init {
-        Log.e("LJX", "CustomLayout")
-    }
 
-    override fun onAttachedToWindow() {
-        Log.e("LJX", "onAttachedToWindow")
-        super.onAttachedToWindow()
+    fun startInterval() {
         Observable.interval(0, 1, TimeUnit.SECONDS)
             .doOnDispose { Log.e("LJX", "doOnDispose") }
             .lifeOnMain(this)
@@ -31,10 +26,5 @@ class CustomLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
                 { Log.e("LJX", "onError") },
                 { Log.e("LJX", "onComplete") },
                 { Log.e("LJX", "onSubscribe") })
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        Log.e("LJX", "onDetachedFromWindow")
     }
 }
