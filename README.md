@@ -9,10 +9,10 @@
 Gradle引用方法
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.5'
+       implementation 'com.rxjava.rxlife:rxlife:1.0.6'
 
-       //AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.0.5'
+       //if you use AndroidX
+       implementation 'com.rxjava.rxlife:rxlife-x:1.0.6'
     }
 
 在View的 onDetachedFromWindow方法 自动断开
@@ -124,6 +124,9 @@ RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observabl
 
 更新日志
 
+1.0.6
+  - 代码优化
+ 
 1.0.5
   - 引入作用域的概念，支持在View中自动中断RxJava管道
 
