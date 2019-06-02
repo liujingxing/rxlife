@@ -1,5 +1,9 @@
 package com.example.rxlife;
 
+import android.arch.lifecycle.GenericLifecycleObserver;
+import android.arch.lifecycle.Lifecycle.Event;
+import android.arch.lifecycle.LifecycleOwner;
+
 import com.rxjava.rxlife.Scope;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -10,7 +14,7 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-31
  * Time: 21:50
  */
-public class BaseScope implements Scope {
+public class BaseScope implements Scope, GenericLifecycleObserver {
 
     private CompositeDisposable mDisposables;
 
@@ -32,9 +36,18 @@ public class BaseScope implements Scope {
         disposables.add(disposable);
     }
 
-    public void dispose() {
+    private void dispose() {
         final CompositeDisposable disposables = mDisposables;
         if (disposables == null) return;
         disposables.dispose();
+    }
+
+    @Override
+    public void onStateChanged(LifecycleOwner source, Event event) {
+        //Activity/Fragment 生命周期回调
+        if (event == Event.ON_DESTROY) {  //Activity/Fragment 销毁
+            source.getLifecycle().removeObserver(this);
+            dispose(); //中断RxJava管道
+        }
     }
 }
