@@ -18,6 +18,10 @@ public class BaseScope implements Scope, GenericLifecycleObserver {
 
     private CompositeDisposable mDisposables;
 
+    public BaseScope(LifecycleOwner owner) {
+        owner.getLifecycle().addObserver(this);
+    }
+
     @Override
     public void onScopeStart(Disposable d) {
         addDisposable(d);

@@ -17,7 +17,7 @@ import io.reactivex.Observable;
 public class Presenter extends BaseScope {
 
     public Presenter(LifecycleOwner owner) {
-        owner.getLifecycle().addObserver(this);  //添加生命周期监听
+        super(owner); //添加生命周期监听
         Observable.interval(1, 1, TimeUnit.SECONDS)
             .as(RxLife.as(this)) //这里的this 为Scope接口对象
             .subscribe(aLong -> {
