@@ -56,7 +56,7 @@ public class MyViewModel extends ScopeViewModel {
 }
 ```
 
-**注意**一定要在Activity/Fragment通过以下方式获取ViewModel对象，否则RxLife接收不到生命周期的回调
+**注意:**一定要在Activity/Fragment通过以下方式获取ViewModel对象，否则RxLife接收不到生命周期的回调
 
 ```java
 
@@ -128,6 +128,8 @@ Observable.timer(5, TimeUnit.SECONDS)
         });
 
 ```
+
+kotlin 用户使用`lifeOnMain`替代`asOnMain`操作符，其它均一样
 
 **注意**
 RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
