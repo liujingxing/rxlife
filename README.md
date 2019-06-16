@@ -79,7 +79,7 @@ public class Presenter extends BaseScope {
 }
 ```
 
-### kotlin用户
+### 5、kotlin用户
 
 由于`as`是kotlin中的一个关键字，所以在kotlin中，我们并不能直接使用`as(RxLife.as(this))`,可以如下编写
 
@@ -103,7 +103,7 @@ Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
 使用`life` 操作符替代`as`操作符即可，其它均一样
 
 
-### 小彩蛋
+### 6、小彩蛋
 
 #### asOnMain操作符
 RxLife还提供了`asOnMain`操作符，它可以指定下游的观察者在主线程中回调，如下：
@@ -128,10 +128,7 @@ Observable.timer(5, TimeUnit.SECONDS)
 
 kotlin 用户使用`lifeOnMain`替代`asOnMain`操作符，其它均一样
 
-**注意**
-RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
-
-
+**注意:** RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
 
 
 
