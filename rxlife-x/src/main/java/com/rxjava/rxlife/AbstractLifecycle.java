@@ -1,7 +1,7 @@
 package com.rxjava.rxlife;
 
 import android.os.Looper;
-import android.support.annotation.MainThread;
+import androidx.annotation.MainThread;
 
 import java.util.concurrent.atomic.AtomicReference;
 

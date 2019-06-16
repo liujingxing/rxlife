@@ -1,6 +1,6 @@
 package com.example.rxlife;
 
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleOwner;
 import android.util.Log;
 
 import com.rxjava.rxlife.BaseScope;
