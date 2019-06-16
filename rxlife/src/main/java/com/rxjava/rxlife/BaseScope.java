@@ -1,10 +1,8 @@
-package com.example.rxlife;
+package com.rxjava.rxlife;
 
 import android.arch.lifecycle.GenericLifecycleObserver;
 import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleOwner;
-
-import com.rxjava.rxlife.Scope;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
