@@ -30,5 +30,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     api 'android.arch.lifecycle:common-java8:1.1.1'
+    compileOnly 'android.arch.lifecycle:extensions:1.1.1'
 }
+
+
+
 

@@ -1,8 +1,8 @@
-package com.example.rxlife;
+package com.rxjava.rxlife;
 
-import android.arch.lifecycle.ViewModel;
-
-import com.rxjava.rxlife.Scope;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.support.annotation.NonNull;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -12,9 +12,13 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-31
  * Time: 21:50
  */
-public class ScopeViewModel extends ViewModel implements Scope {
+public class ScopeViewModel extends AndroidViewModel implements Scope {
 
     private CompositeDisposable mDisposables;
+
+    public ScopeViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     @Override
     public void onScopeStart(Disposable d) {
