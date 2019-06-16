@@ -50,13 +50,10 @@ public class MyViewModel extends ScopeViewModel {
                 Log.e("LJX", "MyViewModel aLong=" + aLong);
             });
     }
-
-    //注意:ViewModel
-    //ViewModelProviders.of(this).get(MyViewModel.class)
 }
 ```
 
-**注意:**一定要在Activity/Fragment通过以下方式获取ViewModel对象，否则RxLife接收不到生命周期的回调
+**注意:** 一定要在Activity/Fragment通过以下方式获取ViewModel对象，否则RxLife接收不到生命周期的回调
 
 ```java
 
