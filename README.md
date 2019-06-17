@@ -131,6 +131,14 @@ kotlin 用户使用`lifeOnMain`替代`asOnMain`操作符，其它均一样
 **注意:** RxLife类里面as操作符，皆适用于Flowable、ParallelFlowable、Observable、Single、Maybe、Completable这6个被观察者对象
 
 
+### 混淆
+
+RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆，请在proguard-rules.pro文件添加以下代码
+
+```java
+-keep class com.rxjava.rxlife.**{*;}
+```
+
 
 # 更新日志
 
