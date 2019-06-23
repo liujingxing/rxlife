@@ -1,10 +1,10 @@
 package com.rxjava.rxlife;
 
 import android.os.Looper;
-import androidx.annotation.MainThread;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import androidx.annotation.MainThread;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -23,6 +23,8 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
         this.scope = scope;
     }
 
+    private boolean isAddObserver;
+
     /**
      * 事件订阅时调用此方法
      */
@@ -35,11 +37,18 @@ public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements
             AndroidSchedulers.mainThread().scheduleDirect(() -> {
                 addObserverOnMain();
                 synchronized (object) {
+                    isAddObserver = true;
                     object.notifyAll();
                 }
             });
             synchronized (object) {
-                object.wait();
+                while (!isAddObserver) {
+                    try {
+                        object.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
