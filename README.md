@@ -1,5 +1,11 @@
 # RxLife
+[RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
 
+ * 直接支持在主线程回调
+ * 支持在子线程订阅观察者
+ * 简单易用，学习成本低
+ * 性能更优，在实现上更加简单
+ 
 详细介绍：https://juejin.im/post/5cf3e1235188251c064815f1
 
 **Gradle引用**
