@@ -8,7 +8,7 @@
  
 **RxHttp&RxLife 交流群：378530627**
 
-**友情提示 RxLife与[RxHttp](https://github.com/liujingxing/RxHttp)搭配使用，味道更佳**
+**友情提示: RxLife与[RxHttp](https://github.com/liujingxing/RxHttp)搭配使用，味道更佳**
 
 **RxLife详细介绍：https://juejin.im/post/5cf3e1235188251c064815f1**
 
