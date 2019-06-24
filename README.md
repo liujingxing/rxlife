@@ -15,6 +15,7 @@
 #Usage
 
 ### 1、Activity/Fragment
+Activity/Fragment销毁时，自动关闭RxJava管道
 
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
@@ -25,7 +26,7 @@ Observable.timer(5, TimeUnit.SECONDS)
 ```
 
 ### 2、View
-
+View被移除时，自动关闭RxJava管道
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
         .as(RxLife.as(this))  //此时的this 为View对象
@@ -36,8 +37,7 @@ Observable.timer(5, TimeUnit.SECONDS)
 ```
 
 ### 3、ViewModel
-
-ViewModel需要继承`ScopeViewModel`类，如下
+Activity/Fragment销毁时，自动关闭RxJava管道，ViewModel需要继承`ScopeViewModel`类，如下
 
 ```java
 public class MyViewModel extends ScopeViewModel {
@@ -62,8 +62,7 @@ MyViewModel viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
 ```
 
 ### 4、任意类
-
-任意类需要继承`BaseScope`类，如P层：
+Activity/Fragment销毁时，自动关闭RxJava管道，任意类需要继承`BaseScope`类，如P层：
 
 ```java
 public class Presenter extends BaseScope {
