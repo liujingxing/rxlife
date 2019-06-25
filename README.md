@@ -18,7 +18,7 @@
 
     dependencies {
        implementation 'com.rxjava.rxlife:rxlife:1.0.8'
-
+       
        //if you use AndroidX
        implementation 'com.rxjava.rxlife:rxlife-x:1.0.8'
     }
@@ -31,20 +31,20 @@ Activity/Fragment销毁时，自动关闭RxJava管道
 
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.as(this))     //此时的this Activity/Fragment对象
-        .subscribe(aLong -> {
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.as(this))     //此时的this Activity/Fragment对象
+    .subscribe(aLong -> {
+        Log.e("LJX", "accept =" + aLong);
+    });
 ```
 
 ### 2、View
 View被移除时，自动关闭RxJava管道
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.as(this))  //此时的this 为View对象
-        .subscribe(aLong -> {
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.as(this))  //此时的this 为View对象
+    .subscribe(aLong -> {
+        Log.e("LJX", "accept =" + aLong);
+    });
 
 ```
 
@@ -120,20 +120,20 @@ Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
 RxLife还提供了`asOnMain`操作符，它可以指定下游的观察者在主线程中回调，如下：
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.asOnMain(this))
-        .subscribe(aLong -> {
-            //在主线程回调
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.asOnMain(this))
+    .subscribe(aLong -> {
+        //在主线程回调
+       Log.e("LJX", "accept =" + aLong);
+    });
 
         //等价于
 Observable.timer(5, TimeUnit.SECONDS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .as(RxLife.as(this))
-        .subscribe(aLong -> {
-            //在主线程回调
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .observeOn(AndroidSchedulers.mainThread())
+    .as(RxLife.as(this))
+    .subscribe(aLong -> {
+        //在主线程回调
+        Log.e("LJX", "accept =" + aLong);
+    });
 
 ```
 
