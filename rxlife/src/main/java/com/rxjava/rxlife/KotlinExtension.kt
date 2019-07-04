@@ -46,6 +46,24 @@ fun <T> Single<T>.life(view: View): SingleLife<T> =
 fun <T> ParallelFlowable<T>.life(view: View): ParallelFlowableLife<T> =
     this.`as`(RxLife.`as`<T>(view))
 
+fun <T> Observable<T>.life(scope: Scope): ObservableLife<T> =
+    this.`as`(RxLife.`as`<T>(scope))
+
+fun <T> Flowable<T>.life(scope: Scope): FlowableLife<T> =
+    this.`as`(RxLife.`as`(scope))
+
+fun <T> Maybe<T>.life(scope: Scope): MaybeLife<T> =
+    this.`as`(RxLife.`as`<T>(scope))
+
+fun Completable.life(scope: Scope): CompletableLife =
+    this.`as`(RxLife.`as`<Any>(scope))
+
+fun <T> Single<T>.life(scope: Scope): SingleLife<T> =
+    this.`as`(RxLife.`as`<T>(scope))
+
+fun <T> ParallelFlowable<T>.life(scope: Scope): ParallelFlowableLife<T> =
+    this.`as`(RxLife.`as`<T>(scope))
+
 
 
 fun <T> Observable<T>.life(owner: LifecycleOwner, event: Lifecycle.Event): ObservableLife<T> =
@@ -126,5 +144,22 @@ fun <T> ParallelFlowable<T>.lifeOnMain(owner: LifecycleOwner, event: Lifecycle.E
     this.`as`(RxLife.asOnMain<T>(owner, event))
 
 
+fun <T> Observable<T>.lifeOnMain(scope: Scope): ObservableLife<T> =
+    this.`as`(RxLife.asOnMain<T>(scope))
+
+fun <T> Flowable<T>.lifeOnMain(scope: Scope): FlowableLife<T> =
+    this.`as`(RxLife.asOnMain(scope))
+
+fun <T> Maybe<T>.lifeOnMain(scope: Scope): MaybeLife<T> =
+    this.`as`(RxLife.asOnMain<T>(scope))
+
+fun Completable.lifeOnMain(scope: Scope): CompletableLife =
+    this.`as`(RxLife.asOnMain<Any>(scope))
+
+fun <T> Single<T>.lifeOnMain(scope: Scope): SingleLife<T> =
+    this.`as`(RxLife.asOnMain<T>(scope))
+
+fun <T> ParallelFlowable<T>.lifeOnMain(scope: Scope): ParallelFlowableLife<T> =
+    this.`as`(RxLife.asOnMain<T>(scope))
 
 
