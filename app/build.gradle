@@ -36,7 +36,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    implementation project(":rxlife-x")
-    implementation 'com.rxjava.rxlife:rxlife-x:1.0.8'
+    implementation 'com.rxjava.rxlife:rxlife-x:1.0.9'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'androidx.appcompat:appcompat:1.0.2'
