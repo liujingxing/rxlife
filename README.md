@@ -17,10 +17,10 @@
 **Gradle引用**
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.8'
+       implementation 'com.rxjava.rxlife:rxlife:1.0.9'
        
        //if you use AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.0.8'
+       implementation 'com.rxjava.rxlife:rxlife-x:1.0.9'
     }
 
 
