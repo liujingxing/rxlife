@@ -1,6 +1,18 @@
 # RxLife
+[RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
 
-详细介绍：https://juejin.im/post/5cf3e1235188251c064815f1
+ * 直接支持在主线程回调
+ * 支持在子线程订阅观察者
+ * 简单易用，学习成本低
+ * 性能更优，在实现上更加简单
+
+**RxHttp&RxLife 交流群：378530627**
+
+**友情提示: RxLife与[RxHttp](https://github.com/liujingxing/RxHttp)搭配使用，味道更佳**
+
+**RxLife详细介绍：https://juejin.im/post/5cf3e1235188251c064815f1**
+
+
 
 **Gradle引用**
 
@@ -15,29 +27,29 @@
 #Usage
 
 ### 1、Activity/Fragment
+Activity/Fragment销毁时，自动关闭RxJava管道
 
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.as(this))     //此时的this Activity/Fragment对象
-        .subscribe(aLong -> {
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.as(this))     //此时的this Activity/Fragment对象
+    .subscribe(aLong -> {
+        Log.e("LJX", "accept =" + aLong);
+    });
 ```
 
 ### 2、View
-
+View被移除时，自动关闭RxJava管道
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.as(this))  //此时的this 为View对象
-        .subscribe(aLong -> {
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.as(this))  //此时的this 为View对象
+    .subscribe(aLong -> {
+        Log.e("LJX", "accept =" + aLong);
+    });
 
 ```
 
 ### 3、ViewModel
-
-ViewModel需要继承`ScopeViewModel`类，如下
+Activity/Fragment销毁时，自动关闭RxJava管道，ViewModel需要继承`ScopeViewModel`类，如下
 
 ```java
 public class MyViewModel extends ScopeViewModel {
@@ -62,8 +74,7 @@ MyViewModel viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
 ```
 
 ### 4、任意类
-
-任意类需要继承`BaseScope`类，如P层：
+Activity/Fragment销毁时，自动关闭RxJava管道，任意类需要继承`BaseScope`类，如P层：
 
 ```java
 public class Presenter extends BaseScope {
@@ -109,20 +120,20 @@ Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
 RxLife还提供了`asOnMain`操作符，它可以指定下游的观察者在主线程中回调，如下：
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-        .as(RxLife.asOnMain(this))
-        .subscribe(aLong -> {
-            //在主线程回调
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .as(RxLife.asOnMain(this))
+    .subscribe(aLong -> {
+        //在主线程回调
+       Log.e("LJX", "accept =" + aLong);
+    });
 
         //等价于
 Observable.timer(5, TimeUnit.SECONDS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .as(RxLife.as(this))
-        .subscribe(aLong -> {
-            //在主线程回调
-            Log.e("LJX", "accept =" + aLong);
-        });
+    .observeOn(AndroidSchedulers.mainThread())
+    .as(RxLife.as(this))
+    .subscribe(aLong -> {
+        //在主线程回调
+        Log.e("LJX", "accept =" + aLong);
+    });
 
 ```
 
@@ -141,6 +152,10 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+
+**1.0.9**
+
+  - kotlin中，支持在ViewModel及任意类使用life、lifeOnMain操作符
 
 **1.0.8**
 
