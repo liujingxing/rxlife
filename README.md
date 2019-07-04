@@ -153,6 +153,10 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 # 更新日志
 
+**1.0.9**
+
+  - kotlin中，支持在ViewModel及任意类使用life、lifeOnMain操作符
+
 **1.0.8**
 
   - 修复在Activity/Fragment中，子线程订阅事件时，偶现观察者没有回调问题
