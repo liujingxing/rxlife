@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/32774707/maven/rxlife/images/download.svg) ](https://bintray.com/32774707/maven/rxlife/_latestVersion)
+
 # RxLife
 [RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
 
