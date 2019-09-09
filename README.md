@@ -19,10 +19,10 @@
 **Gradle引用**
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.0.9'
+       implementation 'com.rxjava.rxlife:rxlife:1.1.0'
        
        //if you use AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.0.9'
+       implementation 'com.rxjava.rxlife:rxlife-x:1.1.0'
     }
 
 
@@ -154,6 +154,10 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+
+**1.1.0**
+
+  - RxLife类增加as(View,boolean)、asOnMain(View,boolean)方法
 
 **1.0.9**
 
