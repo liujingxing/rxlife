@@ -159,6 +159,8 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
   - RxLife类增加as(View,boolean)、asOnMain(View,boolean)方法
 
+  - 删除过时的lift、compose等方法
+
 **1.0.9**
 
   - kotlin中，支持在ViewModel及任意类使用life、lifeOnMain操作符
