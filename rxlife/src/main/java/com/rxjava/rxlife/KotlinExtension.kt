@@ -46,6 +46,24 @@ fun <T> Single<T>.life(view: View): SingleLife<T> =
 fun <T> ParallelFlowable<T>.life(view: View): ParallelFlowableLife<T> =
     this.`as`(RxLife.`as`<T>(view))
 
+fun <T> Observable<T>.life(view: View, ignoreAttach: Boolean): ObservableLife<T> =
+    this.`as`(RxLife.`as`<T>(view, ignoreAttach))
+
+fun <T> Flowable<T>.life(view: View, ignoreAttach: Boolean): FlowableLife<T> =
+    this.`as`(RxLife.`as`(view, ignoreAttach))
+
+fun <T> Maybe<T>.life(view: View, ignoreAttach: Boolean): MaybeLife<T> =
+    this.`as`(RxLife.`as`<T>(view, ignoreAttach))
+
+fun Completable.life(view: View, ignoreAttach: Boolean): CompletableLife =
+    this.`as`(RxLife.`as`<Any>(view, ignoreAttach))
+
+fun <T> Single<T>.life(view: View, ignoreAttach: Boolean): SingleLife<T> =
+    this.`as`(RxLife.`as`<T>(view, ignoreAttach))
+
+fun <T> ParallelFlowable<T>.life(view: View, ignoreAttach: Boolean): ParallelFlowableLife<T> =
+    this.`as`(RxLife.`as`<T>(view, ignoreAttach))
+
 fun <T> Observable<T>.life(scope: Scope): ObservableLife<T> =
     this.`as`(RxLife.`as`<T>(scope))
 
@@ -124,6 +142,24 @@ fun <T> Single<T>.lifeOnMain(view: View): SingleLife<T> =
 
 fun <T> ParallelFlowable<T>.lifeOnMain(view: View): ParallelFlowableLife<T> =
     this.`as`(RxLife.asOnMain<T>(view))
+
+fun <T> Observable<T>.lifeOnMain(view: View, ignoreAttach: Boolean): ObservableLife<T> =
+    this.`as`(RxLife.asOnMain<T>(view, ignoreAttach))
+
+fun <T> Flowable<T>.lifeOnMain(view: View, ignoreAttach: Boolean): FlowableLife<T> =
+    this.`as`(RxLife.asOnMain(view, ignoreAttach))
+
+fun <T> Maybe<T>.lifeOnMain(view: View, ignoreAttach: Boolean): MaybeLife<T> =
+    this.`as`(RxLife.asOnMain<T>(view, ignoreAttach))
+
+fun Completable.lifeOnMain(view: View, ignoreAttach: Boolean): CompletableLife =
+    this.`as`(RxLife.asOnMain<Any>(view, ignoreAttach))
+
+fun <T> Single<T>.lifeOnMain(view: View, ignoreAttach: Boolean): SingleLife<T> =
+    this.`as`(RxLife.asOnMain<T>(view, ignoreAttach))
+
+fun <T> ParallelFlowable<T>.lifeOnMain(view: View, ignoreAttach: Boolean): ParallelFlowableLife<T> =
+    this.`as`(RxLife.asOnMain<T>(view, ignoreAttach))
 
 fun <T> Observable<T>.lifeOnMain(owner: LifecycleOwner, event: Lifecycle.Event): ObservableLife<T> =
     this.`as`(RxLife.asOnMain<T>(owner, event))

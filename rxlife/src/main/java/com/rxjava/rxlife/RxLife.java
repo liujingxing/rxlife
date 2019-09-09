@@ -38,11 +38,29 @@ public final class RxLife {
     }
 
     public static <T> RxConverter<T> as(View view) {
-        return as(ViewScope.from(view), false);
+        return as(ViewScope.from(view, false), false);
+    }
+
+    /**
+     * @param view         目标View
+     * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
+     * @return RxConverter
+     */
+    public static <T> RxConverter<T> as(View view, boolean ignoreAttach) {
+        return as(ViewScope.from(view, ignoreAttach), false);
     }
 
     public static <T> RxConverter<T> asOnMain(View view) {
-        return as(ViewScope.from(view), true);
+        return as(ViewScope.from(view, false), true);
+    }
+
+    /**
+     * @param view         目标View
+     * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
+     * @return RxConverter
+     */
+    public static <T> RxConverter<T> asOnMain(View view, boolean ignoreAttach) {
+        return as(ViewScope.from(view, ignoreAttach), true);
     }
 
     public static <T> RxConverter<T> as(Scope scope) {

@@ -17,12 +17,20 @@ public final class ViewScope implements Scope, OnAttachStateChangeListener {
     private final View view;
     private Disposable disposable;
 
-    private ViewScope(View view) {
+    private boolean ignoreAttach;//忽略View是否添加到Window
+
+    private ViewScope(View view, boolean ignoreAttach) {
         this.view = view;
+        this.ignoreAttach = ignoreAttach;
     }
 
-    static ViewScope from(View view) {
-        return new ViewScope(view);
+    /**
+     * @param view         目标View
+     * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
+     * @return ViewScope
+     */
+    static ViewScope from(View view, boolean ignoreAttach) {
+        return new ViewScope(view, ignoreAttach);
     }
 
     @Override
@@ -33,7 +41,7 @@ public final class ViewScope implements Scope, OnAttachStateChangeListener {
             throw new NullPointerException("view is null");
         boolean isAttached = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && view.isAttachedToWindow())
             || view.getWindowToken() != null;
-        if (!isAttached)
+        if (!isAttached && !ignoreAttach)
             throw new OutsideScopeException("View is not attached!");
         view.addOnAttachStateChangeListener(this);
     }
