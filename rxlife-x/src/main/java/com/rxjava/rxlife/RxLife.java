@@ -1,13 +1,15 @@
 package com.rxjava.rxlife;
 
-import androidx.lifecycle.Lifecycle.Event;
-import androidx.lifecycle.LifecycleOwner;
 import android.view.View;
 
-import org.reactivestreams.Publisher;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleOwner;
 
-import io.reactivex.*;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.parallel.ParallelFlowable;
 
 /**
@@ -84,101 +86,6 @@ public final class RxLife {
             @Override
             public CompletableLife apply(Completable upstream) {
                 return new CompletableLife(upstream, scope, onMain);
-            }
-        };
-    }
-
-    @Deprecated
-    public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner) {
-        return lift(lifecycleOwner, Event.ON_DESTROY);
-    }
-
-    @Deprecated
-    public static <T> RxLifeOperator<T> lift(LifecycleOwner lifecycleOwner, Event event) {
-        return new RxLifeOperator<>(LifecycleScope.from(lifecycleOwner, event));
-    }
-
-    @Deprecated
-    public static <T> RxLifeTransformer<T> compose(LifecycleOwner owner) {
-        return compose(owner, Event.ON_DESTROY);
-    }
-
-    @Deprecated
-    public static <T> RxLifeTransformer<T> compose(LifecycleOwner owner, Event event) {
-        return new RxLifeTransformer<T>() {
-            @Override
-            public SingleSource<T> apply(Single<T> upstream) {
-                return upstream.onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public MaybeSource<T> apply(Maybe<T> upstream) {
-                return upstream.onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
-                return upstream.onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public CompletableSource apply(Completable upstream) {
-                return upstream.onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return upstream.onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-        };
-    }
-
-    @Deprecated
-    public static <T> RxLifeTransformer<T> composeOnMain(LifecycleOwner owner) {
-        return composeOnMain(owner, Event.ON_DESTROY);
-    }
-
-    @Deprecated
-    public static <T> RxLifeTransformer<T> composeOnMain(LifecycleOwner owner, Event event) {
-        return new RxLifeTransformer<T>() {
-            @Override
-            public SingleSource<T> apply(Single<T> upstream) {
-                return upstream.observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public MaybeSource<T> apply(Maybe<T> upstream) {
-                return upstream.observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
-                return upstream.observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public CompletableSource apply(Completable upstream) {
-                return upstream.observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()
-                    .lift(lift(owner, event));
-            }
-
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return upstream.observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()
-                    .lift(lift(owner, event));
             }
         };
     }
