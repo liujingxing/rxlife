@@ -58,8 +58,11 @@ public class MyViewModel extends ScopeViewModel {
 
     public MyViewModel(@NonNull Application application) {
         super(application);
+    }
+   
+    public void test(){
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.asOnMain(this))
+            .as(RxLife.asOnMain(this))  //继承ScopeViewModel后，就可以直接传this
             .subscribe(aLong -> {
                 Log.e("LJX", "MyViewModel aLong=" + aLong);
             });
@@ -83,8 +86,11 @@ public class Presenter extends BaseScope {
 
     public Presenter(LifecycleOwner owner) {
         super(owner); //添加生命周期监听
+    }
+    
+    public void test(){
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.as(this)) //这里的this 为Scope接口对象
+            .as(RxLife.as(this)) //继承BaseScope后，就可以直接传this
             .subscribe(aLong -> {
                 Log.e("LJX", "accept aLong=" + aLong);
             });
