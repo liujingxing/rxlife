@@ -1,9 +1,9 @@
 package com.example.rxlife
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.rxjava.rxlife.lifeOnMain
 import io.reactivex.*
@@ -35,16 +35,16 @@ class RxLifeActivity : AppCompatActivity() {
     fun observable(view: View) {
         Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept=" + aLong + " Thread=" + Thread.currentThread())
+            .subscribe {
+                Log.e("LJX", "accept=$it Thread=${Thread.currentThread()}")
             }
     }
 
     fun flowable(view: View) {
         Flowable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
@@ -59,8 +59,8 @@ class RxLifeActivity : AppCompatActivity() {
     fun maybe(view: View) {
         Maybe.timer(5, TimeUnit.SECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
@@ -74,8 +74,8 @@ class RxLifeActivity : AppCompatActivity() {
         Observable.timer(100, TimeUnit.MILLISECONDS)
             .map(MyFunction())
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
