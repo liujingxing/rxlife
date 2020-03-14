@@ -1,10 +1,10 @@
 package com.example.rxlife
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.rxjava.rxlife.lifeOnMain
 import io.reactivex.*
 import io.reactivex.functions.Function
@@ -24,7 +24,7 @@ class RxLifeActivity : AppCompatActivity() {
 
     fun observableByVM(view: View) {
         //注:不能使用new 关键字创建MyViewModel对象，否则MyViewModel感知不到生命周期
-        val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
     }
 
     fun observableByPresenter(view: View) {

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 12
-        targetSdkVersion 28
+        minSdkVersion 14
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -28,13 +28,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    api 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
-    compileOnly 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    compileOnly 'androidx.lifecycle:lifecycle-common:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 }
 
 
