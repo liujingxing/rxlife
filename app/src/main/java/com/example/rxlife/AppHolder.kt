@@ -6,6 +6,7 @@ import android.util.Log
 import com.squareup.leakcanary.LeakCanary
 
 import io.reactivex.plugins.RxJavaPlugins
+import rxhttp.wrapper.param.RxHttp
 
 /**
  * User: ljx
@@ -26,5 +27,7 @@ class AppHolder : Application() {
              * 这时由于已经取消订阅，“downStream”无法处理异常，此时的异常无人处理，便会导致程序崩溃
              */
         }
+
+        RxHttp.setDebug(true)
     }
 }
