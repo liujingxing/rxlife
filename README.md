@@ -25,6 +25,7 @@
        implementation 'com.rxjava.rxlife:rxlife-x:2.0.0'
     }
 
+`注：由于官方对非AndroidX的库停止更新，故rxlife在2.0.0版本后也停止更新，后续将只更新rxlife-x版本，请尽快将项目迁移至AndroidX`
 
 #Usage
 
