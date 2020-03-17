@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/32774707/maven/rxlife/images/download.svg) ](https://bintray.com/32774707/maven/rxlife/_latestVersion)
+
 # RxLife
 [RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
 
@@ -17,12 +19,13 @@
 **Gradle引用**
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.1.0'
-       
+       implementation 'com.rxjava.rxlife:rxlife:2.0.0'
+
        //if you use AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.1.0'
+       implementation 'com.rxjava.rxlife:rxlife-x:2.0.0'
     }
 
+`注：由于官方对非AndroidX的库停止更新，故rxlife在2.0.0版本后也停止更新，后续将只更新rxlife-x版本，请尽快将项目迁移至AndroidX`
 
 #Usage
 
@@ -56,8 +59,11 @@ public class MyViewModel extends ScopeViewModel {
 
     public MyViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public void test(){
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.asOnMain(this))
+            .as(RxLife.asOnMain(this))  //继承ScopeViewModel后，就可以直接传this
             .subscribe(aLong -> {
                 Log.e("LJX", "MyViewModel aLong=" + aLong);
             });
@@ -81,8 +87,11 @@ public class Presenter extends BaseScope {
 
     public Presenter(LifecycleOwner owner) {
         super(owner); //添加生命周期监听
+    }
+
+    public void test(){
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.as(this)) //这里的this 为Scope接口对象
+            .as(RxLife.as(this)) //继承BaseScope后，就可以直接传this
             .subscribe(aLong -> {
                 Log.e("LJX", "accept aLong=" + aLong);
             });
@@ -153,6 +162,12 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 # 更新日志
 
+**2.0.0**
+
+  - 新增RxLifeScope类，用于开启协程，并在FragmentActivity/ViewModel环境下可以自动关闭协程
+
+  - rxlife-x 的lifecycle等组件升级到2.2.0版本
+
 **1.1.0**
 
   - RxLife类增加as(View,boolean)、asOnMain(View,boolean)方法
@@ -173,7 +188,7 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 **1.0.6**
   - 代码优化
- 
+
 **1.0.5**
   - 引入作用域的概念，支持在View中自动中断RxJava管道
 
@@ -187,6 +202,21 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 
+# Licenses
+```
+Copyright 2019 liujingxing
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
 
 
