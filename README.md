@@ -19,10 +19,10 @@
 **Gradle引用**
 
     dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:1.1.0'
+       implementation 'com.rxjava.rxlife:rxlife:2.0.0'
        
        //if you use AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:1.1.0'
+       implementation 'com.rxjava.rxlife:rxlife-x:2.0.0'
     }
 
 
@@ -160,6 +160,12 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+
+**2.0.0**
+
+  - 新增RxLifeScope类，用于开启协程，并在FragmentActivity/ViewModel环境下可以自动关闭协程
+
+  - rxlife-x 的lifecycle等组件升级到2.2.0版本
 
 **1.1.0**
 
