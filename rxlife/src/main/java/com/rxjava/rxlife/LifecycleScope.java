@@ -1,5 +1,6 @@
 package com.rxjava.rxlife;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.GenericLifecycleObserver;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.Lifecycle.Event;
@@ -13,6 +14,7 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-26
  * Time: 18:17
  */
+@SuppressLint("RestrictedApi")
 public final class LifecycleScope implements Scope, GenericLifecycleObserver {
 
     private final Lifecycle lifecycle;

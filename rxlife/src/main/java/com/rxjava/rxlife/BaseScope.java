@@ -1,5 +1,6 @@
 package com.rxjava.rxlife;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.GenericLifecycleObserver;
 import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleOwner;
@@ -12,6 +13,7 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-31
  * Time: 21:50
  */
+@SuppressLint("RestrictedApi")
 public class BaseScope implements Scope, GenericLifecycleObserver {
 
     private CompositeDisposable mDisposables;
