@@ -7,7 +7,8 @@ import androidx.lifecycle.LifecycleOwner;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * Activity/Fragment作用域

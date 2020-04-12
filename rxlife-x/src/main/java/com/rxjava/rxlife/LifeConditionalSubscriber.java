@@ -3,11 +3,12 @@ package com.rxjava.rxlife;
 
 import org.reactivestreams.Subscription;
 
-import io.reactivex.exceptions.CompositeException;
-import io.reactivex.exceptions.Exceptions;
-import io.reactivex.internal.fuseable.ConditionalSubscriber;
-import io.reactivex.internal.subscriptions.SubscriptionHelper;
-import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.rxjava3.exceptions.CompositeException;
+import io.reactivex.rxjava3.exceptions.Exceptions;
+import io.reactivex.rxjava3.internal.fuseable.ConditionalSubscriber;
+import io.reactivex.rxjava3.internal.subscriptions.SubscriptionHelper;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+
 
 /**
  * 感知Activity、Fragment生命周期的观察者

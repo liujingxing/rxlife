@@ -5,8 +5,9 @@ import android.os.Looper;
 import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.annotation.MainThread;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * User: ljx

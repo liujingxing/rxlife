@@ -4,7 +4,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * View的作用域

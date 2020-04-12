@@ -1,16 +1,16 @@
 package com.rxjava.rxlife;
 
-import io.reactivex.Maybe;
-import io.reactivex.MaybeObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.exceptions.Exceptions;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.functions.Functions;
-import io.reactivex.internal.functions.ObjectHelper;
-import io.reactivex.internal.operators.maybe.MaybeCallbackObserver;
-import io.reactivex.plugins.RxJavaPlugins;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.MaybeObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.exceptions.Exceptions;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.internal.functions.Functions;
+import io.reactivex.rxjava3.internal.operators.maybe.MaybeCallbackObserver;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
 /**
  * User: ljx

@@ -6,8 +6,9 @@ import androidx.lifecycle.LifecycleOwner;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * User: ljx

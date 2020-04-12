@@ -1,6 +1,7 @@
 package com.rxjava.rxlife;
 
-import io.reactivex.disposables.Disposable;
+
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * RxJava作用域

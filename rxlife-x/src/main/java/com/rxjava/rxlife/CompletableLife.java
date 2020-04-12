@@ -1,16 +1,16 @@
 package com.rxjava.rxlife;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.exceptions.Exceptions;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.functions.ObjectHelper;
-import io.reactivex.internal.observers.CallbackCompletableObserver;
-import io.reactivex.internal.observers.EmptyCompletableObserver;
-import io.reactivex.plugins.RxJavaPlugins;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.exceptions.Exceptions;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.internal.observers.CallbackCompletableObserver;
+import io.reactivex.rxjava3.internal.observers.EmptyCompletableObserver;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
 /**
  * User: ljx

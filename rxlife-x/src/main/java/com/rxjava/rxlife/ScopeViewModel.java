@@ -4,8 +4,9 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.annotation.NonNull;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * User: ljx

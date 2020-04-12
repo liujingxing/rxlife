@@ -6,8 +6,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.rxjava.rxlife.lifeOnMain
-import io.reactivex.*
-import io.reactivex.functions.Function
+import io.reactivex.rxjava3.core.*
+import io.reactivex.rxjava3.functions.Function
 import kotlinx.android.synthetic.main.rx_life_activity.*
 import java.util.concurrent.TimeUnit
 
@@ -102,5 +102,6 @@ class RxLifeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("LJX", "RxLifeActivity onDestroy");
     }
 }

@@ -5,12 +5,13 @@ import android.view.View;
 import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.LifecycleOwner;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.parallel.ParallelFlowable;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.parallel.ParallelFlowable;
+
 
 /**
  * User: ljx
@@ -19,41 +20,28 @@ import io.reactivex.parallel.ParallelFlowable;
  */
 public final class RxLife {
 
-    public static <T> RxConverter<T> as(LifecycleOwner owner) {
-        return as(owner, Event.ON_DESTROY, false);
+    public static <T> RxConverter<T> to(LifecycleOwner owner) {
+        return to(owner, Event.ON_DESTROY, false);
     }
 
-    public static <T> RxConverter<T> as(LifecycleOwner owner, Event event) {
-        return as(owner, event, false);
+    public static <T> RxConverter<T> to(LifecycleOwner owner, Event event) {
+        return to(owner, event, false);
     }
 
-    public static <T> RxConverter<T> asOnMain(LifecycleOwner owner) {
-        return as(owner, Event.ON_DESTROY, true);
+    public static <T> RxConverter<T> toMain(LifecycleOwner owner) {
+        return to(owner, Event.ON_DESTROY, true);
     }
 
-    public static <T> RxConverter<T> asOnMain(LifecycleOwner owner, Event event) {
-        return as(owner, event, true);
+    public static <T> RxConverter<T> toMain(LifecycleOwner owner, Event event) {
+        return to(owner, event, true);
     }
 
-    private static <T> RxConverter<T> as(LifecycleOwner owner, Event event, boolean onMain) {
-        return as(LifecycleScope.from(owner, event), onMain);
+    private static <T> RxConverter<T> to(LifecycleOwner owner, Event event, boolean onMain) {
+        return to(LifecycleScope.from(owner, event), onMain);
     }
 
-    public static <T> RxConverter<T> as(View view) {
-        return as(ViewScope.from(view, false), false);
-    }
-
-    /**
-     * @param view         目标View
-     * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
-     * @return RxConverter
-     */
-    public static <T> RxConverter<T> as(View view, boolean ignoreAttach) {
-        return as(ViewScope.from(view, ignoreAttach), false);
-    }
-
-    public static <T> RxConverter<T> asOnMain(View view) {
-        return as(ViewScope.from(view, false), true);
+    public static <T> RxConverter<T> to(View view) {
+        return to(ViewScope.from(view, false), false);
     }
 
     /**
@@ -61,19 +49,32 @@ public final class RxLife {
      * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
      * @return RxConverter
      */
-    public static <T> RxConverter<T> asOnMain(View view, boolean ignoreAttach) {
-        return as(ViewScope.from(view, ignoreAttach), true);
+    public static <T> RxConverter<T> to(View view, boolean ignoreAttach) {
+        return to(ViewScope.from(view, ignoreAttach), false);
     }
 
-    public static <T> RxConverter<T> as(Scope scope) {
-        return as(scope, false);
+    public static <T> RxConverter<T> toMain(View view) {
+        return to(ViewScope.from(view, false), true);
     }
 
-    public static <T> RxConverter<T> asOnMain(Scope scope) {
-        return as(scope, true);
+    /**
+     * @param view         目标View
+     * @param ignoreAttach 忽略View是否添加到Window，默认为false，即不忽略
+     * @return RxConverter
+     */
+    public static <T> RxConverter<T> toMain(View view, boolean ignoreAttach) {
+        return to(ViewScope.from(view, ignoreAttach), true);
     }
 
-    private static <T> RxConverter<T> as(Scope scope, boolean onMain) {
+    public static <T> RxConverter<T> to(Scope scope) {
+        return to(scope, false);
+    }
+
+    public static <T> RxConverter<T> toMain(Scope scope) {
+        return to(scope, true);
+    }
+
+    private static <T> RxConverter<T> to(Scope scope, boolean onMain) {
         return new RxConverter<T>() {
 
             @Override
@@ -106,5 +107,94 @@ public final class RxLife {
                 return new CompletableLife(upstream, scope, onMain);
             }
         };
+    }
+
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> as(LifecycleOwner owner) {
+        return to(owner, Event.ON_DESTROY, false);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner, Event)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> as(LifecycleOwner owner, Event event) {
+        return to(owner, event, false);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> asOnMain(LifecycleOwner owner) {
+        return to(owner, Event.ON_DESTROY, true);
+    }
+
+    public static <T> RxConverter<T> asOnMain(LifecycleOwner owner, Event event) {
+        return to(owner, event, true);
+    }
+
+    private static <T> RxConverter<T> as(LifecycleOwner owner, Event event, boolean onMain) {
+        return to(LifecycleScope.from(owner, event), onMain);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> as(View view) {
+        return to(ViewScope.from(view, false), false);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> as(View view, boolean ignoreAttach) {
+        return to(ViewScope.from(view, ignoreAttach), false);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> asOnMain(View view) {
+        return to(ViewScope.from(view, false), true);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> asOnMain(View view, boolean ignoreAttach) {
+        return to(ViewScope.from(view, ignoreAttach), true);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> as(Scope scope) {
+        return to(scope, false);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    public static <T> RxConverter<T> asOnMain(Scope scope) {
+        return to(scope, true);
+    }
+
+    /**
+     * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
+     */
+    @Deprecated
+    private static <T> RxConverter<T> as(Scope scope, boolean onMain) {
+        return to(scope, onMain);
     }
 }
