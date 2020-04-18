@@ -58,8 +58,10 @@ class RxLifeScope() : Closeable {
     ): Job {
         return coroutineScope.launch {
             try {
-                onStart?.invoke()
-                block()
+                coroutineScope {
+                    onStart?.invoke()
+                    block()
+                }
             } catch (e: Throwable) {
                 if (onError != null) {
                     onError(e)
