@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    api 'androidx.lifecycle:lifecycle-common:2.2.0'
+}

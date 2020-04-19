@@ -1,4 +1,4 @@
-package com.rxjava.rxlife
+package com.rxlife.coroutine
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver

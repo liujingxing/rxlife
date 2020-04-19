@@ -1,7 +1,7 @@
 package androidx.lifecycle
 
 import android.annotation.SuppressLint
-import com.rxjava.rxlife.RxLifeScope
+import com.rxlife.coroutine.RxLifeScope
 
 /**
  * User: ljx
