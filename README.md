@@ -30,7 +30,8 @@ dependencies {
 
 `注：由于Google在19年就停止了非AndroidX的库的更新，故rxlife仅支持AndroidX项目，请尽快将项目迁移至AndroidX`
 
-**注意：rxlife2 使用Rxlife.asXxx方法；rxlife3使用Rxlife.toXxx方法***
+***注意：rxlife2 使用Rxlife.asXxx方法；rxlife3使用Rxlife.toXxx方法***
+
 #Usage
 
 ### 1、Activity/Fragment
