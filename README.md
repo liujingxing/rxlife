@@ -1,4 +1,5 @@
-[ ![Download](https://api.bintray.com/packages/32774707/maven/rxlife/images/download.svg) ](https://bintray.com/32774707/maven/rxlife/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/32774707/maven/rxlife2/images/download.svg) ](https://bintray.com/32774707/maven/rxlife2/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/32774707/maven/rxlife3/images/download.svg) ](https://bintray.com/32774707/maven/rxlife3/_latestVersion)
 
 # RxLife
 [RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
@@ -17,16 +18,19 @@
 
 
 **Gradle引用**
-
-    dependencies {
-       implementation 'com.rxjava.rxlife:rxlife:2.0.0'
+```java
+dependencies {
+   //rxjava2
+   implementation 'com.ljx.rxlife2:rxlife-rxjava:2.0.0'
        
-       //if you use AndroidX
-       implementation 'com.rxjava.rxlife:rxlife-x:2.0.0'
-    }
+   //rxjava3
+   implementation 'com.ljx.rxlife3:rxlife-rxjava:3.0.0'
+}
+```
 
-`注：由于官方对非AndroidX的库停止更新，故rxlife在2.0.0版本后也停止更新，后续将只更新rxlife-x版本，请尽快将项目迁移至AndroidX`
+`注：由于Google在19年就停止了非AndroidX的库的更新，故rxlife仅支持AndroidX项目，请尽快将项目迁移至AndroidX`
 
+**注意：rxlife2 使用Rxlife.asXxx方法；rxlife3使用Rxlife.toXxx方法***
 #Usage
 
 ### 1、Activity/Fragment
