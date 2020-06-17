@@ -34,7 +34,7 @@ dependencies {
 
 #Usage
 
-### 1、Activity/Fragment
+### 1、FragmentActivity/Fragment
 Activity/Fragment销毁时，自动关闭RxJava管道
 
 ```java
