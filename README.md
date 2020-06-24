@@ -18,6 +18,8 @@
 
 
 **Gradle引用**
+
+新版本仅支持AndroidX项目
 ```java
 dependencies {
    //rxjava2
@@ -28,9 +30,15 @@ dependencies {
 }
 ```
 
-`注：由于Google在19年就停止了非AndroidX的库的更新，故rxlife仅支持AndroidX项目，请尽快将项目迁移至AndroidX`
-
 ***注意：rxlife2 使用Rxlife.asXxx方法；rxlife3使用Rxlife.toXxx方法***
+
+**非AndroidX项目**
+
+非AndroidX项目，请使用旧版本RxLife
+```java
+implementation `com.rxjava.rxlife:rxlife:2.0.0`
+```
+由于Google在19年就停止了非AndroidX库的更新，故rxlife旧版本不再维护，请尽快将项目迁移至AndroidX
 
 #Usage
 
