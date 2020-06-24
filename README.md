@@ -36,7 +36,7 @@ dependencies {
 
 非AndroidX项目，请使用旧版本RxLife
 ```java
-implementation `com.rxjava.rxlife:rxlife:2.0.0`
+implementation 'com.rxjava.rxlife:rxlife:2.0.0'
 ```
 由于Google在19年就停止了非AndroidX库的更新，故rxlife旧版本不再维护，请尽快将项目迁移至AndroidX
 
