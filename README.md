@@ -43,11 +43,11 @@ implementation 'com.rxjava.rxlife:rxlife:2.0.0'
 #Usage
 
 ### 1、FragmentActivity/Fragment
-Activity/Fragment销毁时，自动关闭RxJava管道
+FragmentActivity/Fragment销毁时，自动关闭RxJava管道
 
 ```java
 Observable.timer(5, TimeUnit.SECONDS)
-    .as(RxLife.as(this))     //此时的this Activity/Fragment对象
+    .as(RxLife.as(this))     //此时的this FragmentActivity/Fragment对象
     .subscribe(aLong -> {
         Log.e("LJX", "accept =" + aLong);
     });
