@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.LinearLayout
 import com.rxjava.rxlife.lifeOnMain
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
 /**

@@ -1,12 +1,14 @@
 package com.rxjava.rxlife;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.GenericLifecycleObserver;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 
-import io.reactivex.disposables.Disposable;
+import org.jetbrains.annotations.NotNull;
+
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * Activity/Fragment作用域
@@ -14,8 +16,7 @@ import io.reactivex.disposables.Disposable;
  * Date: 2019-05-26
  * Time: 18:17
  */
-@SuppressLint("RestrictedApi")
-public final class LifecycleScope implements Scope, GenericLifecycleObserver {
+public final class LifecycleScope implements Scope, LifecycleEventObserver {
 
     private final Lifecycle lifecycle;
     private final Event event;
@@ -49,7 +50,7 @@ public final class LifecycleScope implements Scope, GenericLifecycleObserver {
     }
 
     @Override
-    public void onStateChanged(LifecycleOwner source, Event event) {
+    public void onStateChanged(@NotNull LifecycleOwner source, Event event) {
         if (event.equals(this.event)) {
             disposable.dispose();
             source.getLifecycle().removeObserver(this);

@@ -1,7 +1,7 @@
 package com.example.rxlife;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.rxjava.rxlife.RxLife;
@@ -9,7 +9,8 @@ import com.rxjava.rxlife.ScopeViewModel;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
+
 
 /**
  * User: ljx
@@ -21,7 +22,7 @@ public class MyViewModel extends ScopeViewModel {
     public MyViewModel(@NonNull Application application) {
         super(application);
         Observable.interval(1, 1, TimeUnit.SECONDS)
-            .as(RxLife.asOnMain(this))
+            .to(RxLife.toMain(this))
             .subscribe(aLong -> {
                 Log.e("LJX", "MyViewModel aLong=" + aLong);
             });

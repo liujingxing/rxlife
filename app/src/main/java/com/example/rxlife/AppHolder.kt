@@ -4,8 +4,8 @@ import android.app.Application
 import android.util.Log
 
 import com.squareup.leakcanary.LeakCanary
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 
-import io.reactivex.plugins.RxJavaPlugins
 
 /**
  * User: ljx

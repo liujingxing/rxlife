@@ -1,12 +1,13 @@
 package com.rxjava.rxlife;
 
 import android.os.Looper;
-import android.support.annotation.MainThread;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import androidx.annotation.MainThread;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * User: ljx

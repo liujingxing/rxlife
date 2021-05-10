@@ -1,17 +1,17 @@
 package com.rxjava.rxlife;
 
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.exceptions.Exceptions;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.functions.Functions;
-import io.reactivex.internal.functions.ObjectHelper;
-import io.reactivex.internal.observers.BiConsumerSingleObserver;
-import io.reactivex.internal.observers.ConsumerSingleObserver;
-import io.reactivex.plugins.RxJavaPlugins;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.exceptions.Exceptions;
+import io.reactivex.rxjava3.functions.BiConsumer;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.internal.functions.Functions;
+import io.reactivex.rxjava3.internal.observers.BiConsumerSingleObserver;
+import io.reactivex.rxjava3.internal.observers.ConsumerSingleObserver;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
 /**
  * User: ljx

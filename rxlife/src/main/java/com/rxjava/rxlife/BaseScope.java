@@ -1,20 +1,21 @@
 package com.rxjava.rxlife;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.GenericLifecycleObserver;
-import android.arch.lifecycle.Lifecycle.Event;
-import android.arch.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import org.jetbrains.annotations.NotNull;
+
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * User: ljx
  * Date: 2019-05-31
  * Time: 21:50
  */
-@SuppressLint("RestrictedApi")
-public class BaseScope implements Scope, GenericLifecycleObserver {
+public class BaseScope implements Scope, LifecycleEventObserver {
 
     private CompositeDisposable mDisposables;
 
@@ -47,7 +48,7 @@ public class BaseScope implements Scope, GenericLifecycleObserver {
     }
 
     @Override
-    public void onStateChanged(LifecycleOwner source, Event event) {
+    public void onStateChanged(@NotNull LifecycleOwner source, @NotNull Event event) {
         //Activity/Fragment 生命周期回调
         if (event == Event.ON_DESTROY) {  //Activity/Fragment 销毁
             source.getLifecycle().removeObserver(this);

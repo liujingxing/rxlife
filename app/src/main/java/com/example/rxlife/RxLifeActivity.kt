@@ -1,13 +1,13 @@
 package com.example.rxlife
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.rxjava.rxlife.lifeOnMain
-import io.reactivex.*
-import io.reactivex.functions.Function
+import io.reactivex.rxjava3.core.*
+import io.reactivex.rxjava3.functions.Function
 import kotlinx.android.synthetic.main.rx_life_activity.*
 import java.util.concurrent.TimeUnit
 
@@ -19,12 +19,12 @@ class RxLifeActivity : AppCompatActivity() {
     }
 
     fun observableByView(view: View) {
-        customLayout.startInterval();
+        customLayout.startInterval()
     }
 
     fun observableByVM(view: View) {
         //注:不能使用new 关键字创建MyViewModel对象，否则MyViewModel感知不到生命周期
-        val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
     }
 
     fun observableByPresenter(view: View) {
@@ -35,16 +35,16 @@ class RxLifeActivity : AppCompatActivity() {
     fun observable(view: View) {
         Observable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept=" + aLong + " Thread=" + Thread.currentThread())
+            .subscribe {
+                Log.e("LJX", "accept=$it Thread=${Thread.currentThread()}")
             }
     }
 
     fun flowable(view: View) {
         Flowable.intervalRange(1, 100, 0, 200, TimeUnit.MILLISECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
@@ -59,8 +59,8 @@ class RxLifeActivity : AppCompatActivity() {
     fun maybe(view: View) {
         Maybe.timer(5, TimeUnit.SECONDS)
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
@@ -74,8 +74,8 @@ class RxLifeActivity : AppCompatActivity() {
         Observable.timer(100, TimeUnit.MILLISECONDS)
             .map(MyFunction())
             .lifeOnMain(this)
-            .subscribe { aLong ->
-                Log.e("LJX", "accept =" + aLong!!)
+            .subscribe {
+                Log.e("LJX", "accept =$it")
             }
     }
 
@@ -102,5 +102,6 @@ class RxLifeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("LJX", "RxLifeActivity onDestroy");
     }
 }
