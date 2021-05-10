@@ -1,1 +1,1 @@
-include ':app', ':rxlife-rxjava3'
+include ':app', ':rxlife-rxjava3', ':rxlife-rxjava2'
