@@ -1,76 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.rxlife.CustomLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/customLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".RxLifeActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.example.rxlife.CustomLayout
+        android:id="@+id/customLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".RxLifeActivity">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="observableByView"
-        android:text="View Observable"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="observableByView"
+            android:text="View Observable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="observableByVM"
-        android:text="ViewModel Observable"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="observableByVM"
+            android:text="ViewModel Observable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="observableByPresenter"
-        android:text="Presenter Observable"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="observableByPresenter"
+            android:text="Presenter Observable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/observable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="observable"
-        android:text="Observable"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/observable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="observable"
+            android:text="Observable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="flowable"
-        android:text="Flowable"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="flowable"
+            android:text="Flowable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="single"
-        android:text="Single"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="single"
+            android:text="Single"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="maybe"
-        android:text="Maybe"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="maybe"
+            android:text="Maybe"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="completable"
-        android:text="Completable"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="completable"
+            android:text="Completable"
+            android:textAllCaps="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="leakCanary"
-        android:text="leakCanary"
-        android:textAllCaps="false" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="leakCanary"
+            android:text="leakCanary"
+            android:textAllCaps="false" />
 
-</com.example.rxlife.CustomLayout>
+    </com.example.rxlife.CustomLayout>
+</layout>

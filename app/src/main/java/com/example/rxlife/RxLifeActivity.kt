@@ -4,22 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.example.rxlife.databinding.RxLifeActivityBinding
 import com.rxjava.rxlife.lifeOnMain
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.functions.Function
-import kotlinx.android.synthetic.main.rx_life_activity.*
 import java.util.concurrent.TimeUnit
 
 class RxLifeActivity : AppCompatActivity() {
 
+    private lateinit var mBinding: RxLifeActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.rx_life_activity)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.rx_life_activity)
     }
 
     fun observableByView(view: View) {
-        customLayout.startInterval()
+        mBinding.customLayout.startInterval()
     }
 
     fun observableByVM(view: View) {
