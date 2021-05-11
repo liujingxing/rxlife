@@ -18,6 +18,17 @@
 
 **Gradle引用**
 
+将`jitpack`添加到项目的`build.gradle`文件中，如下：
+```java
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+`注：RxLife 2.1.0 版本起，已全面从JCenter迁移至jitpack`
+
+
 新版本仅支持AndroidX项目
 ```java
 dependencies {
@@ -32,7 +43,7 @@ dependencies {
 }
 ```
 
-***注意：rxlife2 使用Rxlife.asXxx方法；rxlife3使用Rxlife.toXxx方法***
+***注意：RxJava2 使用Rxlife.asXxx方法；RxJava3使用Rxlife.toXxx方法***
 
 **非AndroidX项目**
 
