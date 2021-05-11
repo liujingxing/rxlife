@@ -25,7 +25,7 @@ dependencies {
    implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.1.0'
 
    //rxjava2
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.1.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.1.0'
        
    //rxjava3
    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.1.0'
