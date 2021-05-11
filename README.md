@@ -22,11 +22,14 @@
 新版本仅支持AndroidX项目
 ```java
 dependencies {
+   //kotlin协程
+   implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.1.0'
+
    //rxjava2
-   implementation 'com.ljx.rxlife2:rxlife-rxjava:2.0.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.1.0'
        
    //rxjava3
-   implementation 'com.ljx.rxlife3:rxlife-rxjava:3.0.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.1.0'
 }
 ```
 

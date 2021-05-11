@@ -48,11 +48,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    implementation "com.ljx.rxhttp:rxhttp:2.5.7"
-    kapt "com.ljx.rxhttp:rxhttp-compiler:2.5.7"
+    implementation "com.github.liujingxing.rxhttp:rxhttp:${rxhttp_version}"
+    kapt "com.github.liujingxing.rxhttp:rxhttp-compiler:${rxhttp_version}"
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
     implementation project(':rxlife-rxjava3')
-//    implementation 'com.ljx.rxlife:rxlife-x:3.0.1'
+//    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.0.0-beta5'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
