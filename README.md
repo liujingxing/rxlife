@@ -176,6 +176,14 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+**2.1.0**
+
+ ### 2021-05-11
+ 
+ - 新增：`RxLife`类下新增`dispose(Disposable)、isDisposed(Disposable)`静态方法
+ 
+ - 修改：由于JCenter停止维护，故全面迁移至jitpack，`groupId`由之前`com.ljx.rxlife`改为`com.github.liujingxing.rxlife`，版本升级时，请注意更改依赖
+
 
 **2.0.0**
 
