@@ -10,6 +10,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.parallel.ParallelFlowable;
 
 /**
@@ -107,4 +108,13 @@ public final class RxLife {
             }
         };
     }
+
+    public static void dispose(Disposable disposable) {
+        if (!isDisposed(disposable)) disposable.dispose();
+    }
+
+    public static boolean isDisposed(Disposable disposable) {
+        return disposable == null || disposable.isDisposed();
+    }
+
 }

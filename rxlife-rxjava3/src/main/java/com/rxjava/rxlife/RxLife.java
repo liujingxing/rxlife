@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.parallel.ParallelFlowable;
 
 
@@ -109,6 +110,13 @@ public final class RxLife {
         };
     }
 
+    public static void dispose(Disposable disposable) {
+        if (!isDisposed(disposable)) disposable.dispose();
+    }
+
+    public static boolean isDisposed(Disposable disposable) {
+        return disposable == null || disposable.isDisposed();
+    }
 
     /**
      * @deprecated please user {@link RxLife#to(LifecycleOwner)} instead
