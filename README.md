@@ -1,5 +1,7 @@
 [![](https://jitpack.io/v/liujingxing/rxlife.svg)](https://jitpack.io/#liujingxing/rxlife)
 
+***RxHttp&RxLife 交流群：378530627   &nbsp;&nbsp;&nbsp;&nbsp;  个人微信：ljx-studio*** 
+
 # RxLife
 [RxLife](https://github.com/liujingxing/RxLife)，相较于[trello/RxLifecycle](https://github.com/trello/RxLifecycle)、[uber/AutoDispose](https://github.com/uber/AutoDispose)，具有如下优势：
 
@@ -8,7 +10,6 @@
  * 简单易用，学习成本低
  * 性能更优，在实现上更加简单
  
-**RxHttp&RxLife 交流群：378530627**
 
 **友情提示: RxLife与[RxHttp](https://github.com/liujingxing/RxHttp)搭配使用，味道更佳**
 
