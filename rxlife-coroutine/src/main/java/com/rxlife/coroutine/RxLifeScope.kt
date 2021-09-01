@@ -1,21 +1,57 @@
 package com.rxlife.coroutine
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import java.io.Closeable
+import kotlin.coroutines.CoroutineContext
 
 /**
- * 此类用于开启协程，并自动捕获异常
- *
- * 在FragmentActivity、 ViewModel环境下，使用 [rxLifeScope.launch] 方式开启协程，会在页面销毁时，自动关闭协程  (注意：这里的rxLifeScope是变量，不是类名)
- *
- * 其它环境下，需要拿到 [RxLifeScope.launch]方法的返回值后，手动调用[Job.cancel]方法关闭协程
  * User: ljx
  * Date: 2020-03-14
  * Time: 10:30
  */
+
+
+/**
+ * rxLifeScope已被废弃，请使用 [lifecycleScope]或[viewModelScope] 替代
+ * 如
+ * ```
+ * lifecycleScope.launch {
+ *     //执行业务逻辑
+ * }
+ * ```
+ * 或
+ * ```
+ * viewModelScope.launch {
+ *     //执行业务逻辑
+ * }
+ * ```
+ *
+ * 为啥被废弃？
+ * 1、同一个FragmentActivity/Fragment下，[rxLifeScope]与[lifecycleScope]不能共用
+ * 2、同一个ViewModel下，[rxLifeScope]与[viewModelScope]不能共用
+ * 3、不能同[lifecycleScope]或[viewModelScope]一样，开启协程时，传入[CoroutineContext]或[CoroutineStart]参数
+ * 亦没有一系列[launchXxx]方法
+ * 4、[rxLifeScope]配合[RxHttp] v2.6.6及以上版本发请求时，调用[async]方法将导致请求结束回调不被调用
+ *
+ *
+ * rxLifeScope配合RxHttp请求时，请求开始/请求结束/请求异常回调如何替代？如下
+ *
+ * ```
+ * lifecycleScope.launch {
+ *      //请求开始
+ *     RxHttp.get("...")
+ *         .toStr()
+ *         .awaitResult {
+ *              //请求成功
+ *         }.onFailure {
+ *              //请求异常
+ *         }
+ *     //请求结束
+ * }
+ * ```
+ */
+@Deprecated(message = "", replaceWith = ReplaceWith("lifecycleScope"))
 class RxLifeScope() : Closeable {
 
     constructor(
