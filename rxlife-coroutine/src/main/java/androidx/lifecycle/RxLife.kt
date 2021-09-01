@@ -22,21 +22,19 @@ import kotlin.coroutines.CoroutineContext
  * implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
  * //viewModelScope
  * implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
- *
  * ```
  * ```
  * lifecycleScope.launch {
  *     //执行业务逻辑
  * }
- * ```
  * 或
- * ```
  * viewModelScope.launch {
  *     //执行业务逻辑
  * }
  * ```
  *
  * 为啥被废弃？
+ *
  * 1、同一个FragmentActivity/Fragment下，[rxLifeScope]与[lifecycleScope]不能共用；同一个ViewModel下，[rxLifeScope]与[viewModelScope]不能共用
  *
  * 2、配合[RxHttp]发请求时，每次都要开启一个协程来捕获异常，这对于再次封装的人，非常不友好；
@@ -46,6 +44,8 @@ import kotlin.coroutines.CoroutineContext
  * 亦没有一系列[launchXxx]方法
  *
  * 4、[rxLifeScope]配合[RxHttp] v2.6.6及以上版本发请求时，调用[async]方法将导致请求结束回调不被调用
+ *
+ *
  *
  *
  * rxLifeScope配合RxHttp请求时，请求开始/请求结束/请求异常回调如何替代？如下
