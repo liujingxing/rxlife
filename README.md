@@ -34,13 +34,13 @@ allprojects {
 ```java
 dependencies {
    //kotlin协程
-   implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.1.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.2.0'
 
    //rxjava2
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.1.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.0'
        
    //rxjava3
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.1.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.0'
 }
 ```
 
