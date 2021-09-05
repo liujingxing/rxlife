@@ -33,9 +33,6 @@ allprojects {
 新版本仅支持AndroidX项目
 ```java
 dependencies {
-   //kotlin协程
-   implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.2.0'
-
    //rxjava2
    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.1'
        
@@ -194,6 +191,7 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 ### 2021-09-05
 
 - 适配`RxJava v3.1.1版本`，`RxLife v2.2.1`版本部分`API`不向下兼容，升级该版本的同时，同步升级RxJava 版本至v3.1.1
+不向下兼容的`API`:`Completable + RxLife`、`ParallelFlowable + RxLife`
 
 
  # **2.2.0**
