@@ -17,7 +17,7 @@ import io.reactivex.plugins.RxJavaPlugins;
  */
 final class LifeConditionalSubscriber<T> extends AbstractLifecycle<Subscription> implements ConditionalSubscriber<T> {
 
-    private ConditionalSubscriber<? super T> downstream;
+    private final ConditionalSubscriber<? super T> downstream;
 
     LifeConditionalSubscriber(ConditionalSubscriber<? super T> downstream, Scope scope) {
         super(scope);

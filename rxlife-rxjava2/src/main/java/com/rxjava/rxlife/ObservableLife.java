@@ -19,7 +19,7 @@ import io.reactivex.plugins.RxJavaPlugins;
  */
 public class ObservableLife<T> extends RxSource<Observer<? super T>> {
 
-    private Observable<T> upStream;
+    private final Observable<T> upStream;
 
     ObservableLife(Observable<T> upStream, Scope scope, boolean onMain) {
         super(scope, onMain);

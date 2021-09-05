@@ -19,7 +19,7 @@ import io.reactivex.plugins.RxJavaPlugins;
  */
 public class CompletableLife extends RxSource<CompletableObserver> {
 
-    private Completable upStream;
+    private final Completable upStream;
 
     CompletableLife(Completable upStream, Scope scope, boolean onMain) {
         super(scope, onMain);

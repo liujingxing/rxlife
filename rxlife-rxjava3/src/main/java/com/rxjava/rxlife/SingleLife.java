@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
  */
 public class SingleLife<T> extends RxSource<SingleObserver<? super T>> {
 
-    private Single<T> upStream;
+    private final Single<T> upStream;
 
     SingleLife(Single<T> upStream, Scope scope, boolean onMain) {
         super(scope, onMain);

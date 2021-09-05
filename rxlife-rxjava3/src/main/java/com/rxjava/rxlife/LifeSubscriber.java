@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
  */
 final class LifeSubscriber<T> extends AbstractLifecycle<Subscription> implements Subscriber<T> {
 
-    private Subscriber<? super T> downstream;
+    private final Subscriber<? super T> downstream;
 
     LifeSubscriber(Subscriber<? super T> downstream, Scope scope) {
         super(scope);

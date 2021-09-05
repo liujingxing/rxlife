@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
  */
 public class MaybeLife<T> extends RxSource<MaybeObserver<? super T>> {
 
-    private Maybe<T> upStream;
+    private final Maybe<T> upStream;
 
     MaybeLife(Maybe<T> upStream, Scope scope, boolean onMain) {
         super(scope, onMain);

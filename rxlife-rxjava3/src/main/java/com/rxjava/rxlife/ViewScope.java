@@ -18,7 +18,7 @@ public final class ViewScope implements Scope, OnAttachStateChangeListener {
     private final View view;
     private Disposable disposable;
 
-    private boolean ignoreAttach;//忽略View是否添加到Window
+    private final boolean ignoreAttach;//忽略View是否添加到Window
 
     private ViewScope(View view, boolean ignoreAttach) {
         this.view = view;

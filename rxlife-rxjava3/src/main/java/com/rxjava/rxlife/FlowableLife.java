@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
  */
 public class FlowableLife<T> extends RxSource<FlowableSubscriber<? super T>> {
 
-    private Flowable<T> upStream;
+    private final Flowable<T> upStream;
 
     FlowableLife(Flowable<T> upStream, Scope scope, boolean onMain) {
         super(scope, onMain);

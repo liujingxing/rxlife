@@ -15,7 +15,7 @@ import io.reactivex.plugins.RxJavaPlugins;
  */
 final class LifeCompletableObserver extends AbstractLifecycle<Disposable> implements CompletableObserver {
 
-    private CompletableObserver downstream;
+    private final CompletableObserver downstream;
 
     LifeCompletableObserver(CompletableObserver downstream,Scope scope) {
         super(scope);

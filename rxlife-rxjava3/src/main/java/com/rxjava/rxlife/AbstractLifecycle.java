@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public abstract class AbstractLifecycle<T> extends AtomicReference<T> implements Disposable {
 
-    private Scope scope;
+    private final Scope scope;
 
     private final Object mObject = new Object();
 

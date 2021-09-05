@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
  */
 final class LifeSingleObserver<T> extends AbstractLifecycle<Disposable> implements SingleObserver<T> {
 
-    private SingleObserver<? super T> downstream;
+    private final SingleObserver<? super T> downstream;
 
     LifeSingleObserver(SingleObserver<? super T> downstream, Scope scope) {
         super(scope);

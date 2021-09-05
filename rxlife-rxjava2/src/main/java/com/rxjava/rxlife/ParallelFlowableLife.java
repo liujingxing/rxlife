@@ -15,9 +15,9 @@ import io.reactivex.parallel.ParallelFlowable;
  */
 public class ParallelFlowableLife<T> {
 
-    private ParallelFlowable<T> upStream;
-    private Scope               scope;
-    private boolean             onMain;
+    private final ParallelFlowable<T> upStream;
+    private final Scope               scope;
+    private final boolean             onMain;
 
     ParallelFlowableLife(ParallelFlowable<T> upStream, Scope scope, boolean onMain) {
         this.upStream = upStream;
