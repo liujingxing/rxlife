@@ -1,5 +1,5 @@
 include ':app',
-        ':rxlife-coroutine',
+//        ':rxlife-coroutine',
         ':rxlife-rxjava2',
         ':rxlife-rxjava3'
 
