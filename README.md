@@ -37,10 +37,10 @@ dependencies {
    implementation 'com.github.liujingxing.rxlife:rxlife-coroutine:2.2.0'
 
    //rxjava2
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.1'
        
    //rxjava3
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.0'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.1'
 }
 ```
 
@@ -188,6 +188,12 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+
+# **2.2.1**
+
+### 2021-09-05
+
+- 适配`RxJava v3.1.1版本`，`RxLife v2.2.1`版本部分`API`不向下兼容，升级该版本的同时，同步升级RxJava 版本至v3.1.1
 
 
  # **2.2.0**
