@@ -13,11 +13,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [rxhttp_rxjava: 'rxjava3']
-            }
+    kapt {
+        arguments {
+            arg("rxhttp_rxjava", "3.1.1") //可传入rxjava2、rxjava3或具体版本号，如 3.1.1
         }
     }
 
@@ -54,7 +54,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
     implementation project(':rxlife-rxjava3')
 //    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.0.0-beta5'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.13'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.1'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 

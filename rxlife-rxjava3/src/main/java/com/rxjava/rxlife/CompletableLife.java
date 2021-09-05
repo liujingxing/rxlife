@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.exceptions.Exceptions;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.internal.functions.Functions;
 import io.reactivex.rxjava3.internal.observers.CallbackCompletableObserver;
 import io.reactivex.rxjava3.internal.observers.EmptyCompletableObserver;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -34,11 +35,7 @@ public class CompletableLife extends RxSource<CompletableObserver> {
     }
 
     public final Disposable subscribe(final Action onComplete) {
-        ObjectHelper.requireNonNull(onComplete, "onComplete is null");
-
-        CallbackCompletableObserver observer = new CallbackCompletableObserver(onComplete);
-        subscribe(observer);
-        return observer;
+        return subscribe(onComplete, Functions.ON_ERROR_MISSING);
     }
 
     public final Disposable subscribe(final Action onComplete, final Consumer<? super Throwable> onError) {
