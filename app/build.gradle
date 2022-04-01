@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion COMPILE_SDK_VERSION as int
     defaultConfig {
         applicationId "com.example.rxlife"
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,9 +45,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.fragment:fragment-ktx:1.3.5'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     implementation "com.github.liujingxing.rxhttp:rxhttp:${rxhttp_version}"
     kapt "com.github.liujingxing.rxhttp:rxhttp-compiler:${rxhttp_version}"
@@ -56,10 +56,5 @@ dependencies {
 //    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.0.0-beta5'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.1'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-    // Optional, if you use support library fragments:
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 }

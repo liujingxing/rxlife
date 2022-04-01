@@ -17,9 +17,9 @@ import kotlin.coroutines.CoroutineContext
  * 如
  * ```
  * //lifecycleScope
- * implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+ * implementation "androidx.lifecycle:lifecycle-runtime-ktx:x.x.x"
  * //viewModelScope
- * implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+ * implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:x.x.x"
  * ```
  * ```
  * lifecycleScope.launch {
