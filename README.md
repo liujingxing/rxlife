@@ -34,10 +34,10 @@ allprojects {
 ```java
 dependencies {
    //rxjava2
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.1'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava2:2.2.2'
        
    //rxjava3
-   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.1'
+   implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.2'
 }
 ```
 
@@ -185,6 +185,14 @@ RxLife作为开源库，可混淆，也可不混淆，如果不希望被混淆�
 
 
 # 更新日志
+
+# **2.2.2**
+
+### 2022-04-01
+
+- `Kotlin`升级至`v1.6.10`
+
+- `Lifecycle`升级至`v2.4.1`
 
 # **2.2.1**
 
