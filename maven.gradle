@@ -1,9 +1,8 @@
 apply plugin: 'maven-publish'
 
-//publishing {
-//    publications {
-//        release(MavenPublication) {
-//            from components.java
-//        }
-//    }
-//}
+publishing {
+    publications {
+        release(MavenPublication) {
+        }
+    }
+}
